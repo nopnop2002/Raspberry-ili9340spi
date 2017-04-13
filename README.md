@@ -3,7 +3,7 @@ ILI9340 SPI TFT Library for Raspberry
 
 
 This is library for RaspberryPi.   
-This library can show a chart to ILI9340 SPI TFT.   
+This library can show a chart to ILI9340/ILI9341 SPI TFT.   
 
 ----
 
