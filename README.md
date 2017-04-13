@@ -2,8 +2,8 @@
 ILI9340 SPI TFT Library for Raspberry
 
 
-This program is example code for RaspberryPi.   
-This program can show a chart to ILI9340 SPI TFT.   
+This is library for RaspberryPi.   
+This library can show a chart to ILI9340 SPI TFT.   
 
 ----
 
@@ -12,7 +12,7 @@ Wirering
 |TFT||Rpi/Opi|
 |:-:|:-:|:-:|
 |MISO|--|Pin#21|
-|LED|--|(220ohm)3.3V|
+|LED|--|220ohm+3.3V|
 |SCK|--|Pin#23|
 |MOSI|--|Pin#19|
 |D/C|--|Pin#3|
