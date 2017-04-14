@@ -11,8 +11,8 @@ Wirering
 
 |TFT||Rpi/Opi|
 |:-:|:-:|:-:|
-|MISO|--|Pin#21|
-|LED|--|220ohm+3.3V|
+|MISO|--|N/C|
+|LED|--|3.3V|
 |SCK|--|Pin#23|
 |MOSI|--|Pin#19|
 |D/C|--|Pin#3|
@@ -22,6 +22,16 @@ Wirering
 |5V|--|5V|
 
 build   
+wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.42.tar.gz   
+tar zxvf bcm2835-1.42.tar.gz   
+cd bcm2835-1.42   
+./configure   
+make   
+sudo make check   
+sudo make install   
+cd $HOME   
+git clone https://github.com/nopnop2002/ili9340spi_rpi   
+cd ili9340spi_rpi   
 cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm   
 
 ----
