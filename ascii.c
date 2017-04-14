@@ -64,7 +64,7 @@ int main()
   xpos = 0;
   ypos = YMAX2-(32*1);
   color = BLACK;
-  strcpy(utf,"漢字TEST");
+  strcpy(utf,"ILI9340");
   xpos = lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
 
   xpos = 0;
@@ -142,7 +142,7 @@ if(_DEBUG_)inputKey();
   xpos = XMAX2-(32*1);
   ypos = YMAX2;
   color = BLACK;
-  strcpy(utf,"32ドットゴシック");
+  strcpy(utf,"32Dot Gothic");
   xpos = lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
 
   xpos = XMAX2-(32*2);
@@ -151,7 +151,7 @@ if(_DEBUG_)inputKey();
 
   xpos = XMAX2-(32*3);
   ypos = YMAX2;
-  strcpy(utf,"32ドット明朝");
+  strcpy(utf,"32Dot Mincho");
   xpos = lcdDrawUTF8String(fxM32, xpos, ypos, utf, color);
 
   xpos = XMAX2-(32*4);
@@ -160,7 +160,7 @@ if(_DEBUG_)inputKey();
 
   xpos = XMAX2-(32*5)-(24*0);
   ypos = YMAX2;
-  strcpy(utf,"24ドットゴシック");
+  strcpy(utf,"24Dot Gothic");
   xpos = lcdDrawUTF8String(fxG24, xpos, ypos, utf, color);
 
   xpos = XMAX2-(32*5)-(24*1);
@@ -169,7 +169,7 @@ if(_DEBUG_)inputKey();
 
   xpos = XMAX2-(32*5)-(24*2);
   ypos = YMAX2;
-  strcpy(utf,"24ドット明朝");
+  strcpy(utf,"24Dot Mincho");
   xpos = lcdDrawUTF8String(fxM24, xpos, ypos, utf, color);
 
   xpos = XMAX2-(32*5)-(24*3);
@@ -186,7 +186,7 @@ if(_DEBUG_)inputKey();
   xpos = XMAX2-(24*1);
   ypos = YMAX2;
   color = BLACK;
-  strcpy(utf,"24ドットゴシック");
+  strcpy(utf,"24Dot Gothic");
   xpos = lcdDrawUTF8String(fxG24, xpos, ypos, utf, color);
 
   xpos = XMAX2-(24*2);
@@ -195,7 +195,7 @@ if(_DEBUG_)inputKey();
 
   xpos = XMAX2-(24*3);
   ypos = YMAX2;
-  strcpy(utf,"24ドット明朝");
+  strcpy(utf,"24Dot Mincho");
   xpos = lcdDrawUTF8String(fxM24, xpos, ypos, utf, color);
 
   xpos = XMAX2-(24*4);
@@ -204,7 +204,7 @@ if(_DEBUG_)inputKey();
 
   xpos = XMAX2-(24*5)-(16*0);
   ypos = YMAX2;
-  strcpy(utf,"16ドットゴシック");
+  strcpy(utf,"16Dot Gothic");
   xpos = lcdDrawUTF8String(fxG16, xpos, ypos, utf, color);
 
   xpos = XMAX2-(24*5)-(16*1);
@@ -213,7 +213,7 @@ if(_DEBUG_)inputKey();
 
   xpos = XMAX2-(24*5)-(16*2);
   ypos = YMAX2;
-  strcpy(utf,"16ドット明朝");
+  strcpy(utf,"16Dot Mincho");
   xpos = lcdDrawUTF8String(fxM16, xpos, ypos, utf, color);
 
   xpos = XMAX2-(24*5)-(16*3);

@@ -55,3 +55,15 @@ cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm
 
 ![ili9340-8](https://cloud.githubusercontent.com/assets/6020549/25006128/a2f493ee-2096-11e7-9d3c-246cb6da658e.JPG)
 
+----
+
+This library can use ILI9341 TFT.   
+
+From left 2.8" ILI9341,2.4" ILI9341, 2.2" ILI9340.   
+
+![ili9341-a](https://cloud.githubusercontent.com/assets/6020549/25058072/db0b0de2-21b0-11e7-8fe1-8dc0496c3fed.JPG)
+
+![ili9341-b](https://cloud.githubusercontent.com/assets/6020549/25058088/f733f38a-21b0-11e7-9c71-b861f7da0c19.JPG)
+
+![ili9341-c](https://cloud.githubusercontent.com/assets/6020549/25058093/02f7680a-21b1-11e7-8f7c-578e6127ca7e.JPG)
+
