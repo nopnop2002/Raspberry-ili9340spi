@@ -220,7 +220,4 @@ if(_DEBUG_)inputKey();
   strcpy(utf,"ABCDEFGabcdefg");
   xpos = lcdDrawUTF8String(fxM16, xpos, ypos, utf, color);
 
-  sleep(1);
-if(_DEBUG_)inputKey();
-
 }
