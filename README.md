@@ -67,3 +67,40 @@ From left 2.8" ILI9341,2.4" ILI9341, 2.2" ILI9340.
 
 ![ili9341-c](https://cloud.githubusercontent.com/assets/6020549/25058093/02f7680a-21b1-11e7-8f7c-578e6127ca7e.JPG)
 
+----
+
+A library of XPT2046 Touch Screen is included in this library.   
+
+Wirering   
+
+|TFT||Rpi/Opi|
+|:-:|:-:|:-:|
+|T_IRQ|--|Pin#22|
+|T_OUT|--|Pin#19|
+|T_DIN|--|Pin#21|
+|T_CS|--|Pin#26|
+|T_CLK|--|Pin#23|
+|MISO|--|N/C|
+|LED|--|3.3V|
+|SCK|--|Pin#23|
+|MOSI|--|Pin#19|
+|D/C|--|Pin#3|
+|RES|--|Pin#5|
+|CS|--|Pin#24|
+|GND|--|GND|
+|5V|--|5V|
+
+----
+
+cc -o xpt xpt.c xpt2046.c -lbcm2835   
+
+If yot touch screen, point will show.   
+
+![touch-11](https://cloud.githubusercontent.com/assets/6020549/25060732/9b4ccd2e-21df-11e7-9f08-0b7377a07f10.jpg)
+
+cc -o touch touch.c fontx.c ili9340.c xpt2046.c -lbcm2835 -lm
+
+If yot touch screen, number will show.   
+
+![touch-12](https://cloud.githubusercontent.com/assets/6020549/25060736/af89c170-21df-11e7-9789-1705e81e4692.JPG)
+
