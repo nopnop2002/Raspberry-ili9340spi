@@ -255,13 +255,13 @@ void lcdDrawPixel(uint16_t x, uint16_t y, uint16_t color){
   lcdWriteData16(color);
 }
 
-// Draw angle
+// Draw rectangule of filling
 // x1:Start X coordinate
 // y1:Start Y coordinate
 // x2:End X coordinate
 // y2:End Y coordinate
 // color:color
-void lcdDrawAngle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color){
+void lcdDrawFillRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color) {
   int i,j; 
   if (x1 > XMAX) return;
   if (x1 < 0) x1=0;
@@ -284,19 +284,19 @@ void lcdDrawAngle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t c
 }
 
 // Display Off
-void lcdDisplayOff(void){
+void lcdDisplayOff(void) {
   lcdWriteCommand(0x28);    //Display off
 }
  
 // Display On
-void lcdDisplayOn(void){
+void lcdDisplayOn(void) {
   lcdWriteCommand(0x29);    //Display on 
 }
 
 // Fill screen
 // color:color
 void lcdFillScreen(uint16_t color) {
-  lcdDrawAngle(0, 0, XMAX-1, YMAX-1, color);
+  lcdDrawFillRect(0, 0, XMAX-1, YMAX-1, color);
 }
 
 // Draw line
@@ -305,8 +305,7 @@ void lcdFillScreen(uint16_t color) {
 // x2:End X coordinate
 // y2:End Y coordinate
 // color:color 
-void lcdDrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color)
-{
+void lcdDrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color) {
   int i;
   int dx,dy;
   int sx,sy;
@@ -353,8 +352,7 @@ void lcdDrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t co
 // x2:End   X coordinate
 // y2:End   Y coordinate
 // color:color
-void lcdDrawRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color)
-{
+void lcdDrawRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color) {
   lcdDrawLine(x1,y1,x2,y1,color);
   lcdDrawLine(x2,y1,x2,y2,color);
   lcdDrawLine(x2,y2,x1,y2,color);
@@ -366,8 +364,7 @@ void lcdDrawRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t co
 // y0:Central Y coordinate
 // r:radius
 // color:color
-void lcdDrawCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t color)
-{
+void lcdDrawCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t color) {
   int x;
   int y;
   int err;
@@ -392,8 +389,7 @@ void lcdDrawCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t color)
 // y0:Central Y coordinate
 // r:radius
 // color:color
-void lcdDrawFillCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t color)
-{
+void lcdDrawFillCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t color) {
   int x;
   int y;
   int err;
@@ -423,8 +419,7 @@ void lcdDrawFillCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t color)
 // y2:End   Y coordinate
 // r:radius
 // color:color
-void lcdDrawRoundRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t r, uint16_t color)
-{
+void lcdDrawRoundRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t r, uint16_t color) {
   int x;
   int y;
   int err;
@@ -469,7 +464,7 @@ void lcdDrawRoundRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16
 // w:Width of the botom
 // color:color
 // Thanks http://k-hiura.cocolog-nifty.com/blog/2010/11/post-2a62.html
-void lcdDrawArrow(uint16_t x0,uint16_t y0,uint16_t x1,uint16_t y1,uint16_t w,uint16_t color){
+void lcdDrawArrow(uint16_t x0,uint16_t y0,uint16_t x1,uint16_t y1,uint16_t w,uint16_t color) {
 
    double Vx= x1 - x0;
    double Vy= y1 - y0;
@@ -499,7 +494,7 @@ void lcdDrawArrow(uint16_t x0,uint16_t y0,uint16_t x1,uint16_t y1,uint16_t w,uin
 // y2:End   Y coordinate
 // w:Width of the botom
 // color:color
-void lcdDrawFillArrow(uint16_t x0,uint16_t y0,uint16_t x1,uint16_t y1,uint16_t w,uint16_t color){
+void lcdDrawFillArrow(uint16_t x0,uint16_t y0,uint16_t x1,uint16_t y1,uint16_t w,uint16_t color) {
 
    double Vx= x1 - x0;
    double Vy= y1 - y0;
@@ -536,8 +531,7 @@ void lcdDrawFillArrow(uint16_t x0,uint16_t y0,uint16_t x1,uint16_t y1,uint16_t w
 // RGB565 conversion
 // RGB565 is R(5)+G(6)+B(5)=16bit color format.
 // Bit image "RRRRRGGGGGGBBBBB"
-uint16_t rgb565_conv(uint16_t r,uint16_t g,uint16_t b)
-{
+uint16_t rgb565_conv(uint16_t r,uint16_t g,uint16_t b) {
    unsigned int RR,GG,BB;
    RR = (r * 31 / 255) << 11;
    GG = (g * 63 / 255) << 5;

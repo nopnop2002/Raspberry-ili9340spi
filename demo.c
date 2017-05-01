@@ -75,7 +75,7 @@ if(_DEBUG_)inputKey();
   //coner angle
   lcdFillScreen(WHITE);
   color = RED;
-  lcdDrawAngle(0,0,20,20,color);
+  lcdDrawFillRect(0,0,20,20,color);
   lcdDrawFillArrow(30,30,20,20,10,color);
   xpos = 30;
   ypos = 30;
@@ -83,7 +83,7 @@ if(_DEBUG_)inputKey();
   lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
 
   color = GRAY;
-  lcdDrawAngle(XMAX-20,0,XMAX,20,color);
+  lcdDrawFillRect(XMAX-20,0,XMAX,20,color);
   lcdDrawFillArrow(XMAX-30,30,XMAX-20,20,10,color);
   xpos = 130;
   ypos = 30;
@@ -91,7 +91,7 @@ if(_DEBUG_)inputKey();
   lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
 
   color = BLUE;
-  lcdDrawAngle(0,YMAX-20,20,YMAX,color);
+  lcdDrawFillRect(0,YMAX-20,20,YMAX,color);
   lcdDrawFillArrow(30,YMAX-30,20,YMAX-20,10,color);
   xpos = 30;
   ypos = 250;
@@ -99,7 +99,7 @@ if(_DEBUG_)inputKey();
   lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
 
   color = PURPLE;
-  lcdDrawAngle(XMAX-20,YMAX-20,XMAX,YMAX,color);
+  lcdDrawFillRect(XMAX-20,YMAX-20,XMAX,YMAX,color);
   lcdDrawFillArrow(XMAX-30,YMAX-30,XMAX-20,YMAX-20,10,color);
   xpos = 130;
   ypos = 250;
@@ -285,6 +285,6 @@ if(_DEBUG_)inputKey();
     xpos=rand()%XMAX;
     ypos=rand()%YMAX;
     size=rand()%30;
-    lcdDrawAngle(xpos,ypos,xpos+size,ypos+size,color);
+    lcdDrawFillRect(xpos,ypos,xpos+size,ypos+size,color);
   }
 }
