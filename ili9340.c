@@ -51,7 +51,7 @@ uint16_t _FONT_UNDER_LINE_COLOR_;
 
 // SPI Write Command
 // D/C=LOW then,write command(8bit)
-void lcdWriteCommand(uint8_t c){
+void lcdWriteCommandByte(uint8_t c){
   int data;
   bcm2835_gpio_write(D_C,LOW);
   data = bcm2835_spi_transfer(c);
@@ -62,7 +62,7 @@ void lcdWriteCommand(uint8_t c){
 
 // SPI Write Data 8Bit
 // D/C=HIGH then,write data(8bit)
-void lcdWriteData(uint8_t c){
+void lcdWriteDataByte(uint8_t c){
   int data;
   bcm2835_gpio_write(D_C,HIGH);
   data = bcm2835_spi_transfer(c);
@@ -70,12 +70,12 @@ void lcdWriteData(uint8_t c){
 
 
 // SPI Write Data 16Bit
-void lcdWriteData16(uint16_t w){
+void lcdWriteDataWord(uint16_t w){
   uint8_t hi,lo;
   hi = (char) (w >> 8);
   lo = (char) (w & 0x00FF);
-  lcdWriteData(hi);
-  lcdWriteData(lo);
+  lcdWriteDataByte(hi);
+  lcdWriteDataByte(lo);
 }
 
 // SPI interfase initialize
@@ -126,116 +126,116 @@ void lcdReset(void){
 //  see M-TM022-SPI demo code(8051)
 void lcdSetup(void){
 #if 0
-  lcdWriteCommand(0xCB);  
-  lcdWriteData(0x39); 
-  lcdWriteData(0x2C); 
-  lcdWriteData(0x00); 
-  lcdWriteData(0x34); 
-  lcdWriteData(0x02); 
+  lcdWriteCommandByte(0xCB);  
+  lcdWriteDataByte(0x39); 
+  lcdWriteDataByte(0x2C); 
+  lcdWriteDataByte(0x00); 
+  lcdWriteDataByte(0x34); 
+  lcdWriteDataByte(0x02); 
 
-  lcdWriteCommand(0xCF);  
-  lcdWriteData(0x00); 
-  lcdWriteData(0XC1); 
-  lcdWriteData(0X30); 
+  lcdWriteCommandByte(0xCF);  
+  lcdWriteDataByte(0x00); 
+  lcdWriteDataByte(0XC1); 
+  lcdWriteDataByte(0X30); 
 
-  lcdWriteCommand(0xE8);  
-  lcdWriteData(0x85); 
-  lcdWriteData(0x00); 
-  lcdWriteData(0x78); 
+  lcdWriteCommandByte(0xE8);  
+  lcdWriteDataByte(0x85); 
+  lcdWriteDataByte(0x00); 
+  lcdWriteDataByte(0x78); 
 
-  lcdWriteCommand(0xEA);  
-  lcdWriteData(0x00); 
-  lcdWriteData(0x00); 
+  lcdWriteCommandByte(0xEA);  
+  lcdWriteDataByte(0x00); 
+  lcdWriteDataByte(0x00); 
 
-  lcdWriteCommand(0xED);  
-  lcdWriteData(0x64); 
-  lcdWriteData(0x03); 
-  lcdWriteData(0X12); 
-  lcdWriteData(0X81); 
+  lcdWriteCommandByte(0xED);  
+  lcdWriteDataByte(0x64); 
+  lcdWriteDataByte(0x03); 
+  lcdWriteDataByte(0X12); 
+  lcdWriteDataByte(0X81); 
 
-  lcdWriteCommand(0xF7);  
-  lcdWriteData(0x20); 
+  lcdWriteCommandByte(0xF7);  
+  lcdWriteDataByte(0x20); 
 #endif
 
-  lcdWriteCommand(0xC0);    //Power control 
-  lcdWriteData(0x23);   //VRH[5:0] 
+  lcdWriteCommandByte(0xC0);    //Power control 
+  lcdWriteDataByte(0x23);   //VRH[5:0] 
 
-  lcdWriteCommand(0xC1);    //Power control 
-  lcdWriteData(0x10);   //SAP[2:0];BT[3:0] 
+  lcdWriteCommandByte(0xC1);    //Power control 
+  lcdWriteDataByte(0x10);   //SAP[2:0];BT[3:0] 
 
-  lcdWriteCommand(0xC5);    //VCM control 
-  lcdWriteData(0x3e); //
-  lcdWriteData(0x28); 
+  lcdWriteCommandByte(0xC5);    //VCM control 
+  lcdWriteDataByte(0x3e); //
+  lcdWriteDataByte(0x28); 
 
-  lcdWriteCommand(0xC7);    //VCM control2 
-  lcdWriteData(0x86);  //--
+  lcdWriteCommandByte(0xC7);    //VCM control2 
+  lcdWriteDataByte(0x86);  //--
 
-  lcdWriteCommand(0x36);    // Memory Access Control 
-  lcdWriteData(0x48); //
+  lcdWriteCommandByte(0x36);    // Memory Access Control 
+  lcdWriteDataByte(0x48); //
 
   //
   //0x48 0x68
   //0x28 0xE8
 
 
-  lcdWriteCommand(0x3A);    
-  lcdWriteData(0x55); 
+  lcdWriteCommandByte(0x3A);    
+  lcdWriteDataByte(0x55); 
 
-  lcdWriteCommand(0xB1);    
-  lcdWriteData(0x00);  
-  lcdWriteData(0x18); 
+  lcdWriteCommandByte(0xB1);    
+  lcdWriteDataByte(0x00);  
+  lcdWriteDataByte(0x18); 
 
-  lcdWriteCommand(0xB6);    // Display Function Control 
-  lcdWriteData(0x08); 
-//  lcdWriteData(0x82);
-  lcdWriteData(0xA2);
-  lcdWriteData(0x27);  
+  lcdWriteCommandByte(0xB6);    // Display Function Control 
+  lcdWriteDataByte(0x08); 
+//  lcdWriteDataByte(0x82);
+  lcdWriteDataByte(0xA2);
+  lcdWriteDataByte(0x27);  
 
-  lcdWriteCommand(0xF2);    // 3Gamma Function Disable 
-  lcdWriteData(0x00); 
+  lcdWriteCommandByte(0xF2);    // 3Gamma Function Disable 
+  lcdWriteDataByte(0x00); 
 
-  lcdWriteCommand(0x26);    //Gamma curve selected 
-  lcdWriteData(0x01); 
+  lcdWriteCommandByte(0x26);    //Gamma curve selected 
+  lcdWriteDataByte(0x01); 
 
-  lcdWriteCommand(0xE0);    //Set Gamma 
-  lcdWriteData(0x0F); 
-  lcdWriteData(0x31); 
-  lcdWriteData(0x2B); 
-  lcdWriteData(0x0C); 
-  lcdWriteData(0x0E); 
-  lcdWriteData(0x08); 
-  lcdWriteData(0x4E); 
-  lcdWriteData(0xF1); 
-  lcdWriteData(0x37); 
-  lcdWriteData(0x07); 
-  lcdWriteData(0x10); 
-  lcdWriteData(0x03); 
-  lcdWriteData(0x0E); 
-  lcdWriteData(0x09); 
-  lcdWriteData(0x00); 
+  lcdWriteCommandByte(0xE0);    //Set Gamma 
+  lcdWriteDataByte(0x0F); 
+  lcdWriteDataByte(0x31); 
+  lcdWriteDataByte(0x2B); 
+  lcdWriteDataByte(0x0C); 
+  lcdWriteDataByte(0x0E); 
+  lcdWriteDataByte(0x08); 
+  lcdWriteDataByte(0x4E); 
+  lcdWriteDataByte(0xF1); 
+  lcdWriteDataByte(0x37); 
+  lcdWriteDataByte(0x07); 
+  lcdWriteDataByte(0x10); 
+  lcdWriteDataByte(0x03); 
+  lcdWriteDataByte(0x0E); 
+  lcdWriteDataByte(0x09); 
+  lcdWriteDataByte(0x00); 
 
-  lcdWriteCommand(0XE1);    //Set Gamma 
-  lcdWriteData(0x00); 
-  lcdWriteData(0x0E); 
-  lcdWriteData(0x14); 
-  lcdWriteData(0x03); 
-  lcdWriteData(0x11); 
-  lcdWriteData(0x07); 
-  lcdWriteData(0x31); 
-  lcdWriteData(0xC1); 
-  lcdWriteData(0x48); 
-  lcdWriteData(0x08); 
-  lcdWriteData(0x0F); 
-  lcdWriteData(0x0C); 
-  lcdWriteData(0x31); 
-  lcdWriteData(0x36); 
-  lcdWriteData(0x0F); 
+  lcdWriteCommandByte(0XE1);    //Set Gamma 
+  lcdWriteDataByte(0x00); 
+  lcdWriteDataByte(0x0E); 
+  lcdWriteDataByte(0x14); 
+  lcdWriteDataByte(0x03); 
+  lcdWriteDataByte(0x11); 
+  lcdWriteDataByte(0x07); 
+  lcdWriteDataByte(0x31); 
+  lcdWriteDataByte(0xC1); 
+  lcdWriteDataByte(0x48); 
+  lcdWriteDataByte(0x08); 
+  lcdWriteDataByte(0x0F); 
+  lcdWriteDataByte(0x0C); 
+  lcdWriteDataByte(0x31); 
+  lcdWriteDataByte(0x36); 
+  lcdWriteDataByte(0x0F); 
 
-  lcdWriteCommand(0x11);    //Exit Sleep 
+  lcdWriteCommandByte(0x11);    //Exit Sleep 
   bcm2835_delay(120); 
   
-  lcdWriteCommand(0x29);    //Display on 
-  lcdWriteCommand(0x2c);    //Memory Write
+  lcdWriteCommandByte(0x29);    //Display on 
+  lcdWriteCommandByte(0x2c);    //Memory Write
 }
 
 // Draw pixel
@@ -245,14 +245,14 @@ void lcdSetup(void){
 void lcdDrawPixel(uint16_t x, uint16_t y, uint16_t color){
   if (x < 0 || x > XMAX) return;
   if (y < 0 || y > YMAX) return;
-  lcdWriteCommand(0x2A); // set column(x) address
-  lcdWriteData16(x);
-  lcdWriteData16(x);
-  lcdWriteCommand(0x2B); // set Page(y) address
-  lcdWriteData16(y);
-  lcdWriteData16(y);
-  lcdWriteCommand(0x2C); // Memory Write
-  lcdWriteData16(color);
+  lcdWriteCommandByte(0x2A); // set column(x) address
+  lcdWriteDataWord(x);
+  lcdWriteDataWord(x);
+  lcdWriteCommandByte(0x2B); // set Page(y) address
+  lcdWriteDataWord(y);
+  lcdWriteDataWord(y);
+  lcdWriteCommandByte(0x2C); // Memory Write
+  lcdWriteDataWord(color);
 }
 
 // Draw rectangule of filling
@@ -269,28 +269,28 @@ void lcdDrawFillRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_
   if (y1 > YMAX) return;
   if (y1 < 0) y1=0;
   if (y2 > YMAX) y2=YMAX;
-  lcdWriteCommand(0x2A); // set column(x) address
-  lcdWriteData16(x1);
-  lcdWriteData16(x2);
-  lcdWriteCommand(0x2B); // set Page(y) address
-  lcdWriteData16(y1);
-  lcdWriteData16(y2);
-  lcdWriteCommand(0x2C); // Memory Write
+  lcdWriteCommandByte(0x2A); // set column(x) address
+  lcdWriteDataWord(x1);
+  lcdWriteDataWord(x2);
+  lcdWriteCommandByte(0x2B); // set Page(y) address
+  lcdWriteDataWord(y1);
+  lcdWriteDataWord(y2);
+  lcdWriteCommandByte(0x2C); // Memory Write
   for(i=x1;i<x2+1;i++){
     for(j=y1;j<y2+1;j++){
-      lcdWriteData16(color);
+      lcdWriteDataWord(color);
     }
   }
 }
 
 // Display Off
 void lcdDisplayOff(void) {
-  lcdWriteCommand(0x28);    //Display off
+  lcdWriteCommandByte(0x28);    //Display off
 }
  
 // Display On
 void lcdDisplayOn(void) {
-  lcdWriteCommand(0x29);    //Display on 
+  lcdWriteCommandByte(0x29);    //Display on 
 }
 
 // Fill screen

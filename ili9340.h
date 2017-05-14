@@ -15,9 +15,9 @@
 #define DIRECTION180    2
 #define DIRECTION270    3
 
-void lcdWriteCommand(uint8_t c);
-void lcdWriteData(uint8_t c);
-void lcdWriteData16(uint16_t w);
+void lcdWriteCommandByte(uint8_t c);
+void lcdWriteDataByte(uint8_t c);
+void lcdWriteDataWord(uint16_t w);
 void lcdOpen(void);
 //void lcdClose(void);
 void lcdReset(void);
