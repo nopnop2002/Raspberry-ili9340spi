@@ -69,7 +69,6 @@ int main()
     }
    }
   }
-  sleep(1);
 if(_DEBUG_)inputKey();
 
   //coner angle
@@ -105,8 +104,6 @@ if(_DEBUG_)inputKey();
   ypos = 250;
   strcpy(utf,"239,319");
   lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
-
-  sleep(1);
 if(_DEBUG_)inputKey();
 
   //drawLine
@@ -119,7 +116,6 @@ if(_DEBUG_)inputKey();
   for(xpos=0;xpos<XMAX;xpos=xpos+10) {
     lcdDrawLine(xpos,0,xpos,YMAX,color);
   }
-  sleep(1);
 if(_DEBUG_)inputKey();
 
   //drawRect
@@ -128,7 +124,6 @@ if(_DEBUG_)inputKey();
   for(i=10;i<120;i=i+10) {
     lcdDrawRect(i,i,XMAX-i,YMAX-i,color);
   }
-  sleep(1);
 if(_DEBUG_)inputKey();
 
   //drawCircle
@@ -139,7 +134,6 @@ if(_DEBUG_)inputKey();
   for(i=10;i<220;i=i+10) {
     lcdDrawCircle(xpos,ypos,i,color);
   }
-  sleep(1);
 if(_DEBUG_)inputKey();
 
   //drawRoundRect
@@ -148,7 +142,6 @@ if(_DEBUG_)inputKey();
   for(i=10;i<120;i=i+10) {
     lcdDrawRoundRect(i,i,XMAX-i,YMAX-i,10,color);
   }
-  sleep(1);
 if(_DEBUG_)inputKey();
 
   //drawString
@@ -224,7 +217,6 @@ if(_DEBUG_)inputKey();
   lcdSetFontUnderLine(GRAY);
   ypos = lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
   lcdUnsetFontUnderLine();
-  sleep(1);
 if(_DEBUG_)inputKey();
 
   //draw malti font
@@ -267,8 +259,6 @@ if(_DEBUG_)inputKey();
   xpos = XMAX2-(32*5)-(24*3);
   strcpy(utf,"ABCDEFGabcdefg");
   xpos = lcdDrawUTF8String(fxM24, xpos, ypos, utf, color);
-
-  sleep(1);
 if(_DEBUG_)inputKey();
 
   //drawFillRect

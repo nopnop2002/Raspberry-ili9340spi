@@ -5,7 +5,7 @@
 // LCD test program 20130103 by ImageWriter
 //
 // [Pin connection]
-// M-TM022-SPI     Rpi(pin)
+// ILI9340-SPI     Rpi(pin)
 // ------------------------
 // MISO------------MISO(21)
 // LED---220ohm----3.3V( 1)
@@ -81,11 +81,6 @@ void lcdWriteDataWord(uint16_t w){
 // SPI interfase initialize
 // MSB,mode0,clock=8,cs0=low
 void lcdInit(void){
-//  if (bcm2835_init() == -1) {
-//    printf("bmc2835_init Error\n");
-//    exit(0);
-//  }
-
   bcm2835_spi_begin();
   bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);
   bcm2835_spi_setDataMode(BCM2835_SPI_MODE0);
@@ -100,15 +95,6 @@ void lcdInit(void){
   _FONT_UNDER_LINE_ = false;
 
 }
-
-#if 0
-// SPI interfase close
-void lcdClose(void){
-  bcm2835_spi_end();
-  bcm2835_close();
-}
-#endif
-
 
 // TFT Reset
 void lcdReset(void){
@@ -125,38 +111,6 @@ void lcdReset(void){
 // TFT initialize
 //  see M-TM022-SPI demo code(8051)
 void lcdSetup(void){
-#if 0
-  lcdWriteCommandByte(0xCB);  
-  lcdWriteDataByte(0x39); 
-  lcdWriteDataByte(0x2C); 
-  lcdWriteDataByte(0x00); 
-  lcdWriteDataByte(0x34); 
-  lcdWriteDataByte(0x02); 
-
-  lcdWriteCommandByte(0xCF);  
-  lcdWriteDataByte(0x00); 
-  lcdWriteDataByte(0XC1); 
-  lcdWriteDataByte(0X30); 
-
-  lcdWriteCommandByte(0xE8);  
-  lcdWriteDataByte(0x85); 
-  lcdWriteDataByte(0x00); 
-  lcdWriteDataByte(0x78); 
-
-  lcdWriteCommandByte(0xEA);  
-  lcdWriteDataByte(0x00); 
-  lcdWriteDataByte(0x00); 
-
-  lcdWriteCommandByte(0xED);  
-  lcdWriteDataByte(0x64); 
-  lcdWriteDataByte(0x03); 
-  lcdWriteDataByte(0X12); 
-  lcdWriteDataByte(0X81); 
-
-  lcdWriteCommandByte(0xF7);  
-  lcdWriteDataByte(0x20); 
-#endif
-
   lcdWriteCommandByte(0xC0);    //Power control 
   lcdWriteDataByte(0x23);   //VRH[5:0] 
 
@@ -172,11 +126,6 @@ void lcdSetup(void){
 
   lcdWriteCommandByte(0x36);    // Memory Access Control 
   lcdWriteDataByte(0x48); //
-
-  //
-  //0x48 0x68
-  //0x28 0xE8
-
 
   lcdWriteCommandByte(0x3A);    
   lcdWriteDataByte(0x55); 
@@ -235,7 +184,7 @@ void lcdSetup(void){
   bcm2835_delay(120); 
   
   lcdWriteCommandByte(0x29);    //Display on 
-  lcdWriteCommandByte(0x2c);    //Memory Write
+//  lcdWriteCommandByte(0x2c);    //Memory Write
 }
 
 // Draw pixel
@@ -243,8 +192,8 @@ void lcdSetup(void){
 // y:Y coordinate
 // color:color
 void lcdDrawPixel(uint16_t x, uint16_t y, uint16_t color){
-  if (x < 0 || x > XMAX) return;
-  if (y < 0 || y > YMAX) return;
+  if (x < 0 || x >= XMAX) return;
+  if (y < 0 || y >= YMAX) return;
   lcdWriteCommandByte(0x2A); // set column(x) address
   lcdWriteDataWord(x);
   lcdWriteDataWord(x);
@@ -263,12 +212,12 @@ void lcdDrawPixel(uint16_t x, uint16_t y, uint16_t color){
 // color:color
 void lcdDrawFillRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color) {
   int i,j; 
-  if (x1 > XMAX) return;
+  if (x1 >= XMAX) return;
   if (x1 < 0) x1=0;
-  if (x2 > XMAX) x2=XMAX;
-  if (y1 > YMAX) return;
+  if (x2 >= XMAX) x2=XMAX-1;
+  if (y1 >= YMAX) return;
   if (y1 < 0) y1=0;
-  if (y2 > YMAX) y2=YMAX;
+  if (y2 >= YMAX) y2=YMAX-1;
   lcdWriteCommandByte(0x2A); // set column(x) address
   lcdWriteDataWord(x1);
   lcdWriteDataWord(x2);
@@ -276,8 +225,8 @@ void lcdDrawFillRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_
   lcdWriteDataWord(y1);
   lcdWriteDataWord(y2);
   lcdWriteCommandByte(0x2C); // Memory Write
-  for(i=x1;i<x2+1;i++){
-    for(j=y1;j<y2+1;j++){
+  for(i=x1;i<=x2;i++){
+    for(j=y1;j<=y2;j++){
       lcdWriteDataWord(color);
     }
   }
