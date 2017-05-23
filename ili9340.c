@@ -214,9 +214,11 @@ void lcdDrawFillRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_
   int i,j; 
   if (x1 >= XMAX) return;
   if (x1 < 0) x1=0;
+  if (x2 < 0) return;
   if (x2 >= XMAX) x2=XMAX-1;
   if (y1 >= YMAX) return;
   if (y1 < 0) y1=0;
+  if (y2 < 0) return;
   if (y2 >= YMAX) y2=YMAX-1;
   lcdWriteCommandByte(0x2A); // set column(x) address
   lcdWriteDataWord(x1);
