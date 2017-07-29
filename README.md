@@ -27,7 +27,7 @@ Wirering
 |RES|--|Pin#5(*)|
 |CS|--|Pin#24(SPI CE0)|
 |GND|--|GND|
-|5V|--|5V|
+|VCC|--|3.3V|
 
 (*) You can change any pin.   
 
@@ -98,7 +98,7 @@ Wirering
 |RES|--|Pin#5(*)|
 |CS|--|Pin#24(SPI CE0)|
 |GND|--|GND|
-|5V|--|5V|
+|VCC|--|3.3V|
 
 (*) You can change any pin.   
 
