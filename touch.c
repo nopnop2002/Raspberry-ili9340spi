@@ -6,9 +6,6 @@
 #include "ili9340.h"
 #include "xpt2046.h"
 
-#define XMAX2   239
-#define YMAX2   319
-
 FontxFile fxG32[2];
 FontxFile fxM32[2];
 FontxFile fxG24[2];
@@ -24,6 +21,9 @@ int main()
   uint16_t xpos,ypos;
   uint16_t color;
   uint8_t utf[64];
+
+  int XMAX,YMAX;
+  int XMAX2,YMAX2;
 
   if (bcm2835_init() == -1) {
     printf("bmc2835_init Error\n");
@@ -46,7 +46,11 @@ int main()
 
   xptInit(&tinfo);
 
-  lcdInit();
+  XMAX = 240;
+  YMAX = 320;
+  XMAX2 = XMAX - 1;
+  YMAX2 = YMAX - 1;
+  lcdInit(XMAX,YMAX);
   lcdReset();
   lcdSetup();
 
@@ -96,7 +100,7 @@ int main()
       id = xptGetPoint(&tinfo);
       if (id != -1) {
 //        printf("id=%d\n",id);
-        lcdInit();
+        lcdInit(XMAX,YMAX);
         lcdSetFontDirection(DIRECTION90);
         utf[0] = id + 48;
         ypos = lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
