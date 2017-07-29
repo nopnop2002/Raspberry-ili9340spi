@@ -79,6 +79,18 @@ From left 2.8" ILI9341,2.4" ILI9341, 2.2" ILI9340.
 
 ----
 
+This library can use ILI9361C/ST7735 TFT.   
+
+From left to right.   
+2.2 inch 240x320 ILI9340   
+1.44 inch 128x128 ST7735   
+1.44 inch 128x128 ILI9163C   
+1.8 inch 128x160 ST7735   
+
+![ili9163-1](https://user-images.githubusercontent.com/6020549/28749424-d9c5af2e-7501-11e7-9e3c-a88376ac015f.JPG)
+
+----
+
 A library of XPT2046 Touch Screen is included in this library.   
 
 Wirering   
