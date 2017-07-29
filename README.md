@@ -3,7 +3,15 @@ ILI9340 SPI TFT Library for Raspberry
 
 
 This is library for RaspberryPi.   
-This library can show a chart to ILI9340/ILI9341 SPI TFT.   
+This library can show a chart to ILI9340/ILI9341/ILI9163C/ST7735 SPI TFT.   
+
+I tested these TFT.   
+1.44 inch 128x128 ST7735.   
+1.44 inch 128x128 ILI9163C.   
+1.8 inch 128x160 ST7735.   
+2.2 inch 240x320 ILI9340.   
+2.4 inch 240x320 ILI9341.   
+2.4 inch 240x320 ILI9341.   
 
 ----
 
