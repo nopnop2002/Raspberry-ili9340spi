@@ -35,8 +35,8 @@
 #include <bcm2835.h>
 #include "ili9340.h"
 
-#define D_C  2  // GPIO2=D/C
-#define RES_ 3  // GPIO3=RESET
+#define D_C  2  // GPIO2=Pin#3
+#define RES_ 3  // GPIO3=Pin#5
 
 //#define XMAX    240
 //#define YMAX    320
