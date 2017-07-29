@@ -38,8 +38,8 @@
 #define D_C  2  // GPIO2=D/C
 #define RES_ 3  // GPIO3=RESET
 
-#define XMAX    240
-#define YMAX    320
+//#define XMAX    240
+//#define YMAX    320
 #define _DEBUG_ 0
 
 uint16_t _FONT_DIRECTION_;
@@ -48,6 +48,8 @@ uint16_t _FONT_FILL_COLOR_;
 uint16_t _FONT_UNDER_LINE_;
 uint16_t _FONT_UNDER_LINE_COLOR_;
 
+uint16_t _width;
+uint16_t _height;
 
 // SPI Write Command
 // D/C=LOW then,write command(8bit)
@@ -80,7 +82,10 @@ void lcdWriteDataWord(uint16_t w){
 
 // SPI interfase initialize
 // MSB,mode0,clock=8,cs0=low
-void lcdInit(void){
+void lcdInit(uint16_t width, uint16_t height){
+  _width = width;
+  _height = height;
+
   bcm2835_spi_begin();
   bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);
   bcm2835_spi_setDataMode(BCM2835_SPI_MODE0);
@@ -192,8 +197,8 @@ void lcdSetup(void){
 // y:Y coordinate
 // color:color
 void lcdDrawPixel(uint16_t x, uint16_t y, uint16_t color){
-  if (x < 0 || x >= XMAX) return;
-  if (y < 0 || y >= YMAX) return;
+  if (x < 0 || x >= _width) return;
+  if (y < 0 || y >= _height) return;
   lcdWriteCommandByte(0x2A); // set column(x) address
   lcdWriteDataWord(x);
   lcdWriteDataWord(x);
@@ -212,14 +217,14 @@ void lcdDrawPixel(uint16_t x, uint16_t y, uint16_t color){
 // color:color
 void lcdDrawFillRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color) {
   int i,j; 
-  if (x1 >= XMAX) return;
+  if (x1 >= _width) return;
   if (x1 < 0) x1=0;
   if (x2 < 0) return;
-  if (x2 >= XMAX) x2=XMAX-1;
-  if (y1 >= YMAX) return;
+  if (x2 >= _width) x2=_width-1;
+  if (y1 >= _height) return;
   if (y1 < 0) y1=0;
   if (y2 < 0) return;
-  if (y2 >= YMAX) y2=YMAX-1;
+  if (y2 >= _height) y2=_height-1;
   lcdWriteCommandByte(0x2A); // set column(x) address
   lcdWriteDataWord(x1);
   lcdWriteDataWord(x2);
@@ -247,7 +252,7 @@ void lcdDisplayOn(void) {
 // Fill screen
 // color:color
 void lcdFillScreen(uint16_t color) {
-  lcdDrawFillRect(0, 0, XMAX-1, YMAX-1, color);
+  lcdDrawFillRect(0, 0, _width-1, _height-1, color);
 }
 
 // Draw line
