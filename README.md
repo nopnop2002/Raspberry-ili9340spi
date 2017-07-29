@@ -79,7 +79,7 @@ From left 2.8" ILI9341,2.4" ILI9341, 2.2" ILI9340.
 
 ----
 
-This library can use ILI9361C/ST7735 TFT.   
+This library can use ILI9163C/ST7735 TFT.   
 
 From left to right.   
 2.2 inch 240x320 ILI9340   
