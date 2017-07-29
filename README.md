@@ -9,17 +9,19 @@ This library can show a chart to ILI9340/ILI9341 SPI TFT.
 
 Wirering   
 
-|TFT||Rpi/Opi|
+|TFT||Rpi|
 |:-:|:-:|:-:|
 |MISO|--|N/C|
 |LED|--|3.3V|
-|SCK|--|Pin#23|
-|MOSI|--|Pin#19|
-|D/C|--|Pin#3|
-|RES|--|Pin#5|
-|CS|--|Pin#24|
+|SCK|--|Pin#23(SPI SCLK)|
+|MOSI|--|Pin#19(SPI MOSI)|
+|D/C|--|Pin#3(*)|
+|RES|--|Pin#5(*)|
+|CS|--|Pin#24(SPI CE0)|
 |GND|--|GND|
 |5V|--|5V|
+
+(*) You can change any pin.   
 
 ----
 
@@ -73,22 +75,24 @@ A library of XPT2046 Touch Screen is included in this library.
 
 Wirering   
 
-|TFT||Rpi/Opi|
+|TFT||Rpi|
 |:-:|:-:|:-:|
-|T_IRQ|--|Pin#22|
-|T_OUT|--|Pin#19|
-|T_DIN|--|Pin#21|
-|T_CS|--|Pin#26|
-|T_CLK|--|Pin#23|
+|T_IRQ|--|Pin#22(*)|
+|T_OUT|--|Pin#19(SPI MOSI)|
+|T_DIN|--|Pin#21(SPI MISO)|
+|T_CS|--|Pin#26(SPI CE1)|
+|T_CLK|--|Pin#23(SPI SCLK)|
 |MISO|--|N/C|
 |LED|--|3.3V|
-|SCK|--|Pin#23|
-|MOSI|--|Pin#19|
-|D/C|--|Pin#3|
-|RES|--|Pin#5|
-|CS|--|Pin#24|
+|SCK|--|Pin#23(SPI SCLK)|
+|MOSI|--|Pin#19(SPI MOSI)|
+|D/C|--|Pin#3(*)|
+|RES|--|Pin#5(*)|
+|CS|--|Pin#24(SPI CE0)|
 |GND|--|GND|
 |5V|--|5V|
+
+(*) You can change any pin.   
 
 ----
 
