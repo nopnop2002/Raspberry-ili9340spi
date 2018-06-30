@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <bcm2835.h>
+#include <time.h>
 #include "ili9340.h"
 
 FontxFile fxG32[2];

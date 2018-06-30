@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <bcm2835.h>
+#include <unistd.h>
 #include "ili9340.h"
 #include "xpt2046.h"
 

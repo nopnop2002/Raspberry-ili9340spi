@@ -515,7 +515,7 @@ if(_DEBUG_)printf("_FONT_DIRECTION_=%d\n",_FONT_DIRECTION_);
 
   rc = GetFontx(fx, sjis, fonts, &pw, &ph); // SJIS -> Font pattern
 if(_DEBUG_)printf("GetFontx rc=%d pw=%d ph=%d\n",rc,pw,ph);
-  if (!rc) return;
+  if (!rc) return 0;
 
   uint16_t xd1, yd1;
   uint16_t xd2, yd2;
