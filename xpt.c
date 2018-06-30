@@ -6,6 +6,9 @@
 #include "bcm2835.h"
 #include "xpt2046.h"
 
+#define T_CS BCM2835_SPI_CS0
+//#define T_CS BCM2835_SPI_CS1
+
 int main (int argc, char **argv){
   int	x, y;
   int	pen_irq;
@@ -17,7 +20,7 @@ int main (int argc, char **argv){
     usleep(10000);	/* do it anyway ; settle time when pen goes up */
     pen_irq = bcm2835_gpio_lev(RPI_V2_GPIO_P1_22);
     if (pen_irq == LOW)	{ /* P1.22 == PenIRQ is LOW : touch! pen is down */
-      xptGetxy(&x, &y);
+      xptGetxy(T_CS, &x, &y);
       printf("touch !! x=%5d y=%5d\n", x, y);
     } else { /* pen is up */
     }

@@ -7,6 +7,9 @@
 #include "ili9340.h"
 #include "xpt2046.h"
 
+#define T_CS BCM2835_SPI_CS0
+//#define T_CS BCM2835_SPI_CS1
+
 FontxFile fxG32[2];
 FontxFile fxM32[2];
 FontxFile fxG24[2];
@@ -98,7 +101,7 @@ int main()
     usleep(10000);      /* do it anyway ; settle time when pen goes up */
     pen_irq = bcm2835_gpio_lev(RPI_V2_GPIO_P1_22);
     if (pen_irq == LOW) { /* P1.22 == PenIRQ is LOW : touch! pen is down */
-      id = xptGetPoint(&tinfo);
+      id = xptGetPoint(T_CS, &tinfo);
       if (id != -1) {
 //        printf("id=%d\n",id);
         lcdInit(XMAX,YMAX);

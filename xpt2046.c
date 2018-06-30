@@ -32,13 +32,15 @@ int xptGetit(int cmd){
   return((rbuf[1]<<8)+rbuf[2]);
 }
 
-void xptGetxy(int *xp, int *yp){
+void xptGetxy(uint8_t chipSelect, int *xp, int *yp){
   bcm2835_spi_begin();
 
   bcm2835_spi_setDataMode(BCM2835_SPI_MODE0);
   bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_1024);
-  bcm2835_spi_chipSelect(BCM2835_SPI_CS1);
-  bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS1, LOW);
+//  bcm2835_spi_chipSelect(BCM2835_SPI_CS1);
+  bcm2835_spi_chipSelect(chipSelect);
+//  bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS1, LOW);
+  bcm2835_spi_setChipSelectPolarity(chipSelect, LOW);
 
   *xp = xptGetit(START |  XPOS);
   *yp = xptGetit(START |  YPOS);
@@ -89,14 +91,14 @@ void xptSetPoint(TouchInfo *hoge,uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2
   hoge->tpc++;
 }
 
-int xptGetPoint(TouchInfo *hoge) {
+int xptGetPoint(uint8_t chipSelect, TouchInfo *hoge) {
   int x, y;
   int i;
   struct timeval myTime;
   struct tm *time_st;
   suseconds_t dt;
 
-  xptGetxy(&x, &y);
+  xptGetxy(chipSelect, &x, &y);
 if(_DEBUG_)printf("touch !! x=%5d y=%5d\n", x, y);
   gettimeofday(&myTime, NULL);
   time_st = localtime(&myTime.tv_sec);

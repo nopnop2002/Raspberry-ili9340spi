@@ -23,8 +23,8 @@ typedef struct {
 #define DTMAX 800000 // 800m sec
 
 int xptGetit(int cmd);
-void xptGetxy(int *xp, int *yp);
+void xptGetxy(uint8_t chipSelect, int *xp, int *yp);
 void xptInit(TouchInfo *hoge);
 void xptDump(TouchInfo *hoge);
 void xptSetPoint(TouchInfo *hoge,uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2,uint16_t id);
-int xptGetPoint(TouchInfo *hoge);
+int xptGetPoint(uint8_t chipSelect, TouchInfo *hoge);
