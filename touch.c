@@ -70,6 +70,7 @@ int main()
     color = BLACK;
 //    strcpy(utf,"1");
     utf[0] = i + 48;
+    utf[1] = 0;
     ypos = lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
     ypos = ypos - 32;
   }
@@ -82,6 +83,7 @@ int main()
     color = BLACK;
 //    strcpy(utf,"1");
     utf[0] = i + 53;
+    utf[1] = 0;
     ypos = lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
     ypos = ypos - 32;
   }
