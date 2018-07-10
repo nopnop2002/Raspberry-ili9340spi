@@ -47,6 +47,7 @@ cd bcm2835-1.42
 make   
 sudo make check   
 sudo make install   
+
 cd $HOME   
 git clone https://github.com/nopnop2002/ili9340spi_rpi   
 cd ili9340spi_rpi   
