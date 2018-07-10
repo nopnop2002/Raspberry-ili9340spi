@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <bcm2835.h>
 #include <time.h>
 #include "ili9340.h"
 
@@ -67,10 +66,12 @@ int main(int argc, char **argv)
   YMAX2 = YMAX - 1;
   printf("TFT size %d x %d\n",XMAX,YMAX);
 
+#if 0
   if (bcm2835_init() == -1) {
     printf("bmc2835_init Error\n");
     return 1;
   }
+#endif
 
   // You can change font file
   // 32Dot Gothic

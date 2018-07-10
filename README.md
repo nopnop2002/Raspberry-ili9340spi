@@ -1,9 +1,8 @@
 # ili9340spi_rpi
-ILI9340 SPI TFT Library for Raspberry
+ILI9340 SPI TFT Library for Raspberry Pi/Orange Pi
 
-
-This is library for RaspberryPi.   
-This library can show a chart to ILI9340/ILI9341/ILI9163C/ST7735 SPI TFT.   
+You can show a chart to ILI9340/ILI9341/ILI9163C/ST7735 SPI TFT.   
+You can choose BCM2835 library/WiringPi(WiringOp) library.   
 
 I tested these TFT.   
 1.44 inch 128x128 ST7735   
@@ -15,9 +14,9 @@ I tested these TFT.
 
 ----
 
-Wirering   
+# Wirering   
 
-|TFT||Rpi|
+|TFT||Rpi/Opi|
 |:-:|:-:|:-:|
 |MISO|--|N/C|
 |LED|--|3.3V|
@@ -31,9 +30,14 @@ Wirering
 
 (*) You can change any pin.   
 
+Note:   
+Opi have only 1 SPI.   
+OPi-PC have CE0 and GPIO8.  
+OPi ZERO have CE1 and GPIO8.   
+
 ----
 
-build   
+# Build using BCM2835 library, RPi Only, Very fast   
 
 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.42.tar.gz   
 tar zxvf bcm2835-1.42.tar.gz   
@@ -45,7 +49,15 @@ sudo make install
 cd $HOME   
 git clone https://github.com/nopnop2002/ili9340spi_rpi   
 cd ili9340spi_rpi   
-cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm   
+cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM   
+
+----
+
+# Build using WiringPi/WiringOp library, Both of RPi/OPi   
+
+git clone https://github.com/nopnop2002/ili9340spi_rpi   
+cd ili9340spi_rpi   
+cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -DWPI   
 
 ----
 
@@ -91,7 +103,7 @@ From left to right.
 
 ----
 
-A library of XPT2046 Touch Screen is included in this library.   
+# A library of XPT2046 Touch Screen is included in this library.   
 
 Wirering   
 
