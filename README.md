@@ -2,7 +2,7 @@
 ILI9340 SPI TFT Library for Raspberry Pi/Orange Pi
 
 You can show a chart to ILI9340/ILI9341/ILI9163C/ST7735 SPI TFT.   
-You can choose BCM2835 library/WiringPi(WiringOp) library.   
+You can choose bmc2835 library/WiringPi(WiringOp) library.   
 
 I tested these TFT.   
 1.44 inch 128x128 ST7735   
@@ -37,7 +37,7 @@ OPi ZERO have CE1 and GPIO8.
 
 ----
 
-# Build using BCM2835 library, RPi Only, Very fast   
+# Build using bcm2835 library, RPi Only, Very fast   
 
 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.42.tar.gz   
 tar zxvf bcm2835-1.42.tar.gz   
@@ -53,7 +53,7 @@ cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM
 
 ----
 
-# Build using WiringPi/WiringOp library, Both of RPi/OPi   
+# Build using WiringPi/WiringOp library, Both of RPi/OPi, Slow...   
 
 git clone https://github.com/nopnop2002/ili9340spi_rpi   
 cd ili9340spi_rpi   
@@ -103,7 +103,7 @@ From left to right.
 
 ----
 
-# A library of XPT2046 Touch Screen is included in this library.   
+# A library of XPT2046 Touch Screen is included in this library   
 
 Wirering   
 
