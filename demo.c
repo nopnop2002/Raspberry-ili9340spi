@@ -25,18 +25,15 @@ int main(int argc, char **argv)
 {
   int i,j;
   uint16_t Y1,Y2;
-  uint16_t X1,X2;
   uint16_t xpos,ypos;
   uint16_t color;
   uint16_t size;
-  uint8_t utf[20];
+  unsigned char utf[20];
   int model;
   int XMAX,YMAX;
   int XMAX2,YMAX2;
   int ARROW;
   int FSIZE;
-  char *HEIGHT;
-  char *WIDTH;
 
   if (argc == 1) {
     printf("Usage : %s TFT_SIZE\n",argv[0]);
@@ -92,8 +89,6 @@ int main(int argc, char **argv)
   lcdSetup();
 
   //color bar
-  X1=XMAX/3;
-  X2=(XMAX/3)*2;
   Y1=YMAX/3;
   Y2=(YMAX/3)*2;
   for(i=0;i<XMAX;i++){
@@ -117,12 +112,12 @@ if(_DEBUG_)inputKey();
     lcdDrawFillArrow(30,30,20,20,10,color);
     xpos = 30;
     ypos = 30;
-    strcpy(utf,"0,0");
+    strcpy((char *)utf,"0,0");
     lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
   } else {
     xpos = 00;
     ypos = 25;
-    strcpy(utf,"0,0");
+    strcpy((char *)utf,"0,0");
     lcdDrawUTF8String(fxM16, xpos, ypos, utf, color);
   }
 
@@ -132,12 +127,12 @@ if(_DEBUG_)inputKey();
     lcdDrawFillArrow(XMAX-30,30,XMAX-20,20,10,color);
     xpos = 130;
     ypos = 30;
-    strcpy(utf,"239,0");
+    strcpy((char *)utf,"239,0");
     lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
   } else {
     xpos = 80;
     ypos = 25;
-    sprintf(utf,"%d,0",XMAX);
+    sprintf((char *)utf,"%d,0",XMAX);
     lcdDrawUTF8String(fxM16, xpos, ypos, utf, color);
   }
 
@@ -147,12 +142,12 @@ if(_DEBUG_)inputKey();
     lcdDrawFillArrow(30,YMAX-30,20,YMAX-20,10,color);
     xpos = 30;
     ypos = 250;
-    strcpy(utf,"0,319");
+    strcpy((char *)utf,"0,319");
     lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
   } else {
     xpos = 00;
     ypos = YMAX -  40;
-    sprintf(utf,"0,%d",YMAX);
+    sprintf((char *)utf,"0,%d",YMAX);
     lcdDrawUTF8String(fxM16, xpos, ypos, utf, color);
   }
 
@@ -163,12 +158,12 @@ if(_DEBUG_)inputKey();
     lcdDrawFillArrow(XMAX-30,YMAX-30,XMAX-20,YMAX-20,10,color);
     xpos = 130;
     ypos = 250;
-    strcpy(utf,"239,319");
+    strcpy((char *)utf,"239,319");
     lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
   } else {
     xpos = 70;
     ypos = YMAX -  40;
-    sprintf(utf,"%d,%d",XMAX,YMAX);
+    sprintf((char *)utf,"%d,%d",XMAX,YMAX);
     lcdDrawUTF8String(fxM16, xpos, ypos, utf, color);
   }
 if(_DEBUG_)inputKey();
@@ -216,8 +211,8 @@ if(_DEBUG_)inputKey();
   xpos = 0;
   ypos = YMAX2-(FSIZE*1);
   color = BLACK;
-  sprintf(utf,"%dx%d",XMAX,YMAX);
-//  strcpy(utf,"ILI9340");
+  sprintf((char *)utf,"%dx%d",XMAX,YMAX);
+//  strcpy((char *)utf,"ILI9340");
   if (FSIZE == 32) 
     lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
   if (FSIZE == 24) 
@@ -358,38 +353,38 @@ if(_DEBUG_)inputKey();
   xpos = XMAX2-(32*1);
   ypos = YMAX2;
   color = BLACK;
-  strcpy(utf,"32Dot Gothic");
+  strcpy((char *)utf,"32Dot Gothic");
   xpos = lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
 
   xpos = XMAX2-(32*2);
-  strcpy(utf,"32ドットゴシック");
+  strcpy((char *)utf,"32ドットゴシック");
   xpos = lcdDrawUTF8String(fxG32, xpos, ypos, utf, color);
 
   xpos = XMAX2-(32*3);
   ypos = YMAX2;
-  strcpy(utf,"32Dot Mincho");
+  strcpy((char *)utf,"32Dot Mincho");
   xpos = lcdDrawUTF8String(fxM32, xpos, ypos, utf, color);
 
   xpos = XMAX2-(32*4);
-  strcpy(utf,"32ドット明朝");
+  strcpy((char *)utf,"32ドット明朝");
   xpos = lcdDrawUTF8String(fxM32, xpos, ypos, utf, color);
 
   xpos = XMAX2-(32*5)-(24*0);
   ypos = YMAX2;
-  strcpy(utf,"24Dot Gothic");
+  strcpy((char *)utf,"24Dot Gothic");
   xpos = lcdDrawUTF8String(fxG24, xpos, ypos, utf, color);
 
   xpos = XMAX2-(32*5)-(24*1);
-  strcpy(utf,"24ドットゴシック");
+  strcpy((char *)utf,"24ドットゴシック");
   xpos = lcdDrawUTF8String(fxG24, xpos, ypos, utf, color);
 
   xpos = XMAX2-(32*5)-(24*2);
   ypos = YMAX2;
-  strcpy(utf,"24Dot Mincho");
+  strcpy((char *)utf,"24Dot Mincho");
   xpos = lcdDrawUTF8String(fxM24, xpos, ypos, utf, color);
 
   xpos = XMAX2-(32*5)-(24*3);
-  strcpy(utf,"24ドット明朝");
+  strcpy((char *)utf,"24ドット明朝");
   xpos = lcdDrawUTF8String(fxM24, xpos, ypos, utf, color);
 if(_DEBUG_)inputKey();
   }
@@ -398,27 +393,27 @@ if(_DEBUG_)inputKey();
   xpos = XMAX2-(16*1);
   ypos = YMAX2;
   color = BLACK;
-  strcpy(utf,"16Dot Gothic");
+  strcpy((char *)utf,"16Dot Gothic");
   lcdDrawUTF8String(fxG16, xpos, ypos, utf, color);
 
   xpos = XMAX2-(16*2);
-  strcpy(utf,"16ドットゴシック");
+  strcpy((char *)utf,"16ドットゴシック");
   lcdDrawUTF8String(fxG16, xpos, ypos, utf, color);
 
   xpos = XMAX2-(16*3);
-  strcpy(utf,"16ﾄﾞｯﾄｺﾞｼｯｸ");
+  strcpy((char *)utf,"16ﾄﾞｯﾄｺﾞｼｯｸ");
   lcdDrawUTF8String(fxG16, xpos, ypos, utf, color);
 
   xpos = XMAX2-(16*5);
-  strcpy(utf,"16Dot Mincho");
+  strcpy((char *)utf,"16Dot Mincho");
   lcdDrawUTF8String(fxM16, xpos, ypos, utf, color);
 
   xpos = XMAX2-(16*6);
-  strcpy(utf,"16ドット明朝");
+  strcpy((char *)utf,"16ドット明朝");
   lcdDrawUTF8String(fxM16, xpos, ypos, utf, color);
 
   xpos = XMAX2-(16*7);
-  strcpy(utf,"16ﾄﾞｯﾄﾐﾝﾁｮｳ");
+  strcpy((char *)utf,"16ﾄﾞｯﾄﾐﾝﾁｮｳ");
   lcdDrawUTF8String(fxM16, xpos, ypos, utf, color);
 if(_DEBUG_)inputKey();
   }
@@ -441,4 +436,5 @@ if(_DEBUG_)inputKey();
     size=rand()%(XMAX/10);
     lcdDrawFillRect(xpos,ypos,xpos+size,ypos+size,color);
   }
+  return 0;
 }

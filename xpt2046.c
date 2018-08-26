@@ -95,16 +95,16 @@ int xptGetPoint(uint8_t chipSelect, TouchInfo *hoge) {
   int x, y;
   int i;
   struct timeval myTime;
-  struct tm *time_st;
+//  struct tm *time_st;
   suseconds_t dt;
 
   xptGetxy(chipSelect, &x, &y);
 if(_DEBUG_)printf("touch !! x=%5d y=%5d\n", x, y);
   gettimeofday(&myTime, NULL);
-  time_st = localtime(&myTime.tv_sec);
+//  time_st = localtime(&myTime.tv_sec);
+  localtime(&myTime.tv_sec);
   if (myTime.tv_sec == hoge->lsec) {
     dt = myTime.tv_usec - hoge->lusec;
-if(_DEBUG_)printf("dt=%06d\n",dt);
     if (dt < DTMAX) return -1;
   }
   for(i=0;i<hoge->tpc;i++) {
@@ -118,11 +118,10 @@ if(_DEBUG_)printf("dt=%06d\n",dt);
     if (x > hoge->tps[i].x1 && x < hoge->tps[i].x2) {
       if (y > hoge->tps[i].y1 && y < hoge->tps[i].y2) {
         gettimeofday(&myTime, NULL);
-        time_st = localtime(&myTime.tv_sec);
-if(_DEBUG_)printf("myTime.tv_sec=%06d tv_usec=%06d\n",myTime.tv_sec,myTime.tv_usec);
+//        time_st = localtime(&myTime.tv_sec);
+        localtime(&myTime.tv_sec);
         hoge->lsec = myTime.tv_sec;
         hoge->lusec = myTime.tv_usec;
-if(_DEBUG_)printf("usec=%06d-%06d\n",hoge->lsec,hoge->lusec);
         return hoge->tps[i].id;
       }
     }

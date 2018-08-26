@@ -21,13 +21,11 @@ TouchInfo tinfo;
 
 int main()
 {
-  int i,j;
+  int i;
   uint16_t xpos,ypos;
   uint16_t color;
   uint8_t utf[64];
-
   int XMAX,YMAX;
-  int XMAX2,YMAX2;
 
   if (bcm2835_init() == -1) {
     printf("bmc2835_init Error\n");
@@ -52,8 +50,6 @@ int main()
 
   XMAX = 240;
   YMAX = 320;
-  XMAX2 = XMAX - 1;
-  YMAX2 = YMAX - 1;
   lcdInit(XMAX,YMAX);
   lcdReset();
   lcdSetup();
@@ -62,7 +58,7 @@ int main()
   lcdFillScreen(WHITE);
   lcdSetFontDirection(DIRECTION90);
   xpos = 180;
-  ypos = YMAX2-(32*1);
+  ypos = (YMAX-1)-(32*1);
   for (i=0;i<5;i++) {
     lcdDrawRect(xpos-8, ypos+16, xpos+40, ypos-32, BLACK);
     xptSetPoint(&tinfo, xpos-8 ,ypos+16 ,xpos+40, ypos-32, i);
@@ -76,7 +72,7 @@ int main()
   }
 
   xpos = 120;
-  ypos = YMAX2-(32*1);
+  ypos = (YMAX-1)-(32*1);
   for (i=0;i<5;i++) {
     lcdDrawRect(xpos-8, ypos+16, xpos+40, ypos-32, BLACK);
     xptSetPoint(&tinfo, xpos-8 ,ypos+16 ,xpos+40, ypos-32, i+5);
@@ -90,14 +86,13 @@ int main()
 
 
   // read xpt2046
-  int x, y;
   int pen_irq;
   int id;
 
   bcm2835_gpio_fsel(RPI_V2_GPIO_P1_22,BCM2835_GPIO_FSEL_INPT);
 
   xpos = 40;
-  ypos = YMAX2-(32*1);
+  ypos = (YMAX-1)-(32*1);
   color = RED;
   for (;;) {
     usleep(10000);      /* do it anyway ; settle time when pen goes up */

@@ -137,7 +137,7 @@ If you touch screen, point will show.
 
 ![touch-11](https://cloud.githubusercontent.com/assets/6020549/25060732/9b4ccd2e-21df-11e7-9f08-0b7377a07f10.jpg)
 
-cc -o touch touch.c fontx.c ili9340.c xpt2046.c -lbcm2835 -lm
+cc -o touch touch.c fontx.c ili9340.c xpt2046.c -lbcm2835 -lm -DBCM
 
 If you touch area, number will show.   
 

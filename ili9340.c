@@ -82,9 +82,10 @@ void lcdWriteDataByte(uint8_t c){
 // SPI Write Command
 // D/C=LOW then,write command(8bit)
 void lcdWriteCommandByte(uint8_t c){
-  int data;
+// int data;
   bcm2835_gpio_write(D_C,LOW);
-  data = bcm2835_spi_transfer(c);
+//  data = bcm2835_spi_transfer(c);
+  bcm2835_spi_transfer(c);
   bcm2835_gpio_write(D_C,HIGH);
 // printf("COMMAND: %02X\n", c);
 // printf("DATA: %02X\n", data);
@@ -93,9 +94,10 @@ void lcdWriteCommandByte(uint8_t c){
 // SPI Write Data 8Bit
 // D/C=HIGH then,write data(8bit)
 void lcdWriteDataByte(uint8_t c){
-  int data;
+//  int data;
   bcm2835_gpio_write(D_C,HIGH);
-  data = bcm2835_spi_transfer(c);
+  bcm2835_spi_transfer(c);
+//  data = bcm2835_spi_transfer(c);
 }
 #endif
 
@@ -256,8 +258,12 @@ void lcdSetup(void){
   lcdWriteDataByte(0x0F); 
 
   lcdWriteCommandByte(0x11);    //Exit Sleep 
-  //bcm2835_delay(120); 
+#ifdef BCM
+  bcm2835_delay(120); 
+#endif
+#ifdef WPI
   delay(120);
+#endif
   
   lcdWriteCommandByte(0x29);    //Display on 
 //  lcdWriteCommandByte(0x2c);    //Memory Write
@@ -656,9 +662,9 @@ if(_DEBUG_)printf("xss=%d yss=%d\n",xss,yss);
         } else {
           if (_FONT_FILL_) lcdDrawPixel(xx,yy,_FONT_FILL_COLOR_);
         }
-        if (h == (ph-2) & _FONT_UNDER_LINE_)
+        if (h == (ph-2) && _FONT_UNDER_LINE_)
           lcdDrawPixel(xx,yy,_FONT_UNDER_LINE_COLOR_);
-        if (h == (ph-1) & _FONT_UNDER_LINE_)
+        if (h == (ph-1) && _FONT_UNDER_LINE_)
           lcdDrawPixel(xx,yy,_FONT_UNDER_LINE_COLOR_);
 
         xx = xx + xd1;
@@ -694,12 +700,12 @@ if(_DEBUG_)printf("sjis=%04x\n",sjis[0]);
 // y:Y coordinate
 // utfs: UTF8 string
 // color:color
-int lcdDrawUTF8String(FontxFile *fx, uint16_t x,uint16_t y,uint8_t *utfs,uint16_t color) {
+int lcdDrawUTF8String(FontxFile *fx, uint16_t x,uint16_t y,unsigned char *utfs,uint16_t color) {
 
   int i;
   int spos;
   uint16_t sjis[64];
-  spos = String2SJIS(utfs, strlen(utfs), sjis, 64);
+  spos = String2SJIS(utfs, strlen((char *)utfs), sjis, 64);
 if(_DEBUG_)printf("spos=%d\n",spos);
   for(i=0;i<spos;i++) {
 if(_DEBUG_)printf("sjis[%d]=%x y=%d\n",i,sjis[i],y);
@@ -716,6 +722,7 @@ if(_DEBUG_)printf("sjis[%d]=%x y=%d\n",i,sjis[i],y);
   if (_FONT_DIRECTION_ == 2) return x;
   if (_FONT_DIRECTION_ == 1) return y;
   if (_FONT_DIRECTION_ == 3) return y;
+  return 0;
 }
 
 // Set font direction
