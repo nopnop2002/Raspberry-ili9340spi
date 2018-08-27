@@ -30,7 +30,8 @@ int main(int argc, char **argv)
   uint16_t size;
   unsigned char utf[20];
   int model;
-  int XMAX,YMAX;
+  int XMAX = 0;
+  int YMAX = 0;
   int XMAX2,YMAX2;
   int ARROW;
   int FSIZE;

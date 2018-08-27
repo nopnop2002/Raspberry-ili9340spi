@@ -7,8 +7,8 @@
 #include "ili9340.h"
 #include "xpt2046.h"
 
-#define T_CS BCM2835_SPI_CS0
-//#define T_CS BCM2835_SPI_CS1
+//#define T_CS BCM2835_SPI_CS0
+#define T_CS BCM2835_SPI_CS1
 
 FontxFile fxG32[2];
 FontxFile fxM32[2];

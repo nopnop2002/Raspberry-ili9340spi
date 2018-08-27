@@ -18,15 +18,15 @@ I tested these TFT.
 
 |TFT||Rpi/Opi|
 |:-:|:-:|:-:|
-|MISO|--|N/C|
-|LED|--|3.3V|
-|SCK|--|Pin#23(SPI SCLK)|
-|MOSI|--|Pin#19(SPI MOSI)|
-|D/C|--|Pin#3(*)|
-|RES|--|Pin#5(*)|
-|CS|--|Pin#24(SPI CE0)|
-|GND|--|GND|
 |VCC|--|3.3V|
+|GND|--|GND|
+|CS|--|Pin#24(SPI CE0)|
+|RES|--|Pin#5(*)|
+|D/C|--|Pin#3(*)|
+|MOSI|--|Pin#19(SPI MOSI)|
+|SCK|--|Pin#23(SPI SCLK)|
+|LED|--|3.3V|
+|MISO|--|N/C|
 
 (*) You can change any pin.   
 
@@ -113,8 +113,8 @@ Wirering
 |TFT||Rpi|
 |:-:|:-:|:-:|
 |T_IRQ|--|Pin#22(*)|
-|T_OUT|--|Pin#19(SPI MOSI)|
-|T_DIN|--|Pin#21(SPI MISO)|
+|T_OUT|--|Pin#21(SPI MISO)|
+|T_DIN|--|Pin#19(SPI MOSI)|
 |T_CS|--|Pin#26(SPI CE1)|
 |T_CLK|--|Pin#23(SPI SCLK)|
 |MISO|--|N/C|
