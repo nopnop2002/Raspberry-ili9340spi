@@ -76,6 +76,15 @@ void lcdWriteDataByte(uint8_t c){
   wiringPiSPIDataRW(0, &c, 1);
 //  digitalWrite(C_S,HIGH);
 }
+
+// SPI Write Data 16Bit
+void lcdWriteDataWord(uint16_t w){
+  uint8_t hi,lo;
+  hi = (char) (w >> 8);
+  lo = (char) (w & 0x00FF);
+  lcdWriteDataByte(hi);
+  lcdWriteDataByte(lo);
+}
 #endif
 
 #ifdef BCM
@@ -99,18 +108,13 @@ void lcdWriteDataByte(uint8_t c){
   bcm2835_spi_transfer(c);
 //  data = bcm2835_spi_transfer(c);
 }
-#endif
-
 
 // SPI Write Data 16Bit
 void lcdWriteDataWord(uint16_t w){
-  uint8_t hi,lo;
-  hi = (char) (w >> 8);
-  lo = (char) (w & 0x00FF);
-  lcdWriteDataByte(hi);
-  lcdWriteDataByte(lo);
+  bcm2835_gpio_write(D_C,HIGH);
+  bcm2835_spi_write(w);
 }
-
+#endif
 
 
 #ifdef WPI
@@ -565,11 +569,7 @@ void lcdDrawFillArrow(uint16_t x0,uint16_t y0,uint16_t x1,uint16_t y1,uint16_t w
 // RGB565 is R(5)+G(6)+B(5)=16bit color format.
 // Bit image "RRRRRGGGGGGBBBBB"
 uint16_t rgb565_conv(uint16_t r,uint16_t g,uint16_t b) {
-   unsigned int RR,GG,BB;
-   RR = (r * 31 / 255) << 11;
-   GG = (g * 63 / 255) << 5;
-   BB = (b * 31 / 255);
-   return(RR | GG | BB);
+	return (((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3));
 }
 
 
