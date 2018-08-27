@@ -40,9 +40,9 @@ OPi ZERO have CE1 and GPIO8.
 # Build using bcm2835 library   
 RPi Only, Very fast   
 
-wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.42.tar.gz   
-tar zxvf bcm2835-1.42.tar.gz   
-cd bcm2835-1.42   
+wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.56.tar.gz   
+tar zxvf bcm2835-1.56.tar.gz   
+cd bcm2835-1.56   
 ./configure   
 make   
 sudo make check   
