@@ -6,8 +6,8 @@
 #include "bcm2835.h"
 #include "xpt2046.h"
 
-#define T_CS BCM2835_SPI_CS0
-//#define T_CS BCM2835_SPI_CS1
+//#define T_CS BCM2835_SPI_CS0
+#define T_CS BCM2835_SPI_CS1
 
 int main (int argc, char **argv){
   int	x, y;
