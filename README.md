@@ -48,7 +48,7 @@ make
 sudo make check   
 sudo make install   
 
-\* This tool needs 1.56 or later.   
+\* This tool require 1.56 or later.   
 \* Because this tool uses bcm2835_gpio_write.   
 
 
