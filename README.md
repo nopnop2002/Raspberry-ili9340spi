@@ -76,21 +76,17 @@ It use GRAM offset which set to tft.conf.
 
 ----
 
-![ili9340-1](https://cloud.githubusercontent.com/assets/6020549/25006015/3dd4f15c-2096-11e7-82db-d444ee689cb0.JPG)
-
-![ili9340-2](https://cloud.githubusercontent.com/assets/6020549/25006026/4d36b842-2096-11e7-9030-1d7455a23a53.JPG)
-
-![ili9340-3](https://cloud.githubusercontent.com/assets/6020549/25006042/5c2b1992-2096-11e7-9ee8-e1a4fe2b1b03.JPG)
-
-![ili9340-4](https://cloud.githubusercontent.com/assets/6020549/25006061/6ccffa24-2096-11e7-90bf-caebc15cf942.JPG)
-
-![ili9340-5](https://cloud.githubusercontent.com/assets/6020549/25006078/80c4b5d8-2096-11e7-8c88-650f8df1699f.JPG)
-
-![ili9340-6](https://cloud.githubusercontent.com/assets/6020549/25006148/b546b11c-2096-11e7-83ad-7352264bae70.JPG)
-
-![ili9340-7](https://cloud.githubusercontent.com/assets/6020549/25006105/91e96e4e-2096-11e7-917a-81ca38ad3d6b.JPG)
-
-![ili9340-8](https://cloud.githubusercontent.com/assets/6020549/25006128/a2f493ee-2096-11e7-9d3c-246cb6da658e.JPG)
+![ili9340-20](https://user-images.githubusercontent.com/6020549/58363268-65f57200-7edc-11e9-8cc8-af25397d5e24.JPG)
+![ili9340-21](https://user-images.githubusercontent.com/6020549/58363269-65f57200-7edc-11e9-89f9-8ad644e0b279.JPG)
+![ili9340-11](https://user-images.githubusercontent.com/6020549/58363270-668e0880-7edc-11e9-8f5a-ad00c60c5d4d.JPG)
+![ili9340-12](https://user-images.githubusercontent.com/6020549/58363271-668e0880-7edc-11e9-80f9-4019c53c334d.JPG)
+![ili9340-13](https://user-images.githubusercontent.com/6020549/58363272-668e0880-7edc-11e9-8ced-64367179c509.JPG)
+![ili9340-14](https://user-images.githubusercontent.com/6020549/58363273-668e0880-7edc-11e9-84c1-779bd70a9ac4.JPG)
+![ili9340-15](https://user-images.githubusercontent.com/6020549/58363274-67269f00-7edc-11e9-874e-b96165374809.JPG)
+![ili9340-16](https://user-images.githubusercontent.com/6020549/58363275-67269f00-7edc-11e9-9664-2e7a2fe6d6bf.JPG)
+![ili9340-17](https://user-images.githubusercontent.com/6020549/58363276-67269f00-7edc-11e9-9fc4-579a03e6bfd2.JPG)
+![ili9340-18](https://user-images.githubusercontent.com/6020549/58363277-67269f00-7edc-11e9-9d77-2ebacc8666c5.JPG)
+![ili9340-19](https://user-images.githubusercontent.com/6020549/58363278-67bf3580-7edc-11e9-9e95-c9daaa85c4b1.JPG)
 
 ----
 
