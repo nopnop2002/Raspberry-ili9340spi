@@ -48,8 +48,8 @@ make
 sudo make check   
 sudo make install   
 
-_\* This tool require 1.56 or later._   
-_\* Because this tool uses bcm2835_spi_write._   
+__\* This tool require 1.56 or later.__   
+__\* Because this tool uses bcm2835_spi_write.__   
 
 
 cd $HOME   
@@ -65,6 +65,14 @@ Both of RPi/OPi, But slow
 git clone https://github.com/nopnop2002/ili9340spi_rpi   
 cd ili9340spi_rpi   
 cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -DWPI   
+
+----
+
+# TFT resolution and GRAM offset   
+TFT resolution is set to tft.conf.   
+
+If your TFT doesn't use a memory from 0th address in GRAM,
+It use GRAM offset which set to tft.conf.   
 
 ----
 

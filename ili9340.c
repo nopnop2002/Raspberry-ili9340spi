@@ -39,15 +39,14 @@
 #ifdef BCM
 #include <bcm2835.h>
 #endif
+
 #include "ili9340.h"
 
 #define D_C  2  // GPIO2=Pin#3
 #define RES  3  // GPIO3=Pin#5
 #define C_S  8  // GPIO8=Pin#24
 
-//#define XMAX    240
-//#define YMAX    320
-#define _DEBUG_ 0
+#define _DEBUG_   0
 
 uint16_t _FONT_DIRECTION_;
 uint16_t _FONT_FILL_;
@@ -55,8 +54,10 @@ uint16_t _FONT_FILL_COLOR_;
 uint16_t _FONT_UNDER_LINE_;
 uint16_t _FONT_UNDER_LINE_COLOR_;
 
-uint16_t _width;
-uint16_t _height;
+int _width;
+int _height;
+int _offsetx;
+int _offsety;
 
 #ifdef WPI
 // SPI Write Command 8Bit
@@ -91,22 +92,16 @@ void lcdWriteDataWord(uint16_t w){
 // SPI Write Command
 // D/C=LOW then,write command(8bit)
 void lcdWriteCommandByte(uint8_t c){
-// int data;
   bcm2835_gpio_write(D_C,LOW);
-//  data = bcm2835_spi_transfer(c);
   bcm2835_spi_transfer(c);
   bcm2835_gpio_write(D_C,HIGH);
-// printf("COMMAND: %02X\n", c);
-// printf("DATA: %02X\n", data);
 }
 
 // SPI Write Data 8Bit
 // D/C=HIGH then,write data(8bit)
 void lcdWriteDataByte(uint8_t c){
-//  int data;
   bcm2835_gpio_write(D_C,HIGH);
   bcm2835_spi_transfer(c);
-//  data = bcm2835_spi_transfer(c);
 }
 
 // SPI Write Data 16Bit
@@ -120,9 +115,11 @@ void lcdWriteDataWord(uint16_t w){
 #ifdef WPI
 // SPI interfase initialize
 // MSB,mode0,clock=8,cs0=low
-void lcdInit(uint16_t width, uint16_t height){
+void lcdInit(int width, int height, int offsetx, int offsety){
   _width = width;
   _height = height;
+  _offsetx = offsetx;
+  _offsety = offsety;
 
   if (wiringPiSetupGpio() == -1) {
     printf("wiringPiSetup Error\n");
@@ -143,19 +140,21 @@ void lcdReset(void){
   digitalWrite(D_C,HIGH);   // D/C = H
   digitalWrite(C_S,LOW);    // CS = L
 
-  digitalWrite(RES, LOW);    // Reset low
-  delay(100);
-  digitalWrite(RES, HIGH);   // Reset high
-  delay(100);
+  digitalWrite(RES, LOW);    // Reset Low
+  delay(200);
+  digitalWrite(RES, HIGH);   // Reset High
+  delay(200);
 }
 #endif
 
 #ifdef BCM
 // SPI interfase initialize
 // MSB,mode0,clock=8,cs0=low
-void lcdInit(uint16_t width, uint16_t height){
+void lcdInit(int width, int height, int offsetx, int offsety){
   _width = width;
   _height = height;
+  _offsetx = offsetx;
+  _offsety = offsety;
   if (bcm2835_init() == -1) {
     printf("bmc2835_init Error\n");
     return;
@@ -180,54 +179,55 @@ void lcdInit(uint16_t width, uint16_t height){
 void lcdReset(void){
   bcm2835_gpio_fsel(D_C,BCM2835_GPIO_FSEL_OUTP); // D/C
   bcm2835_gpio_fsel(RES,BCM2835_GPIO_FSEL_OUTP); // Reset
-  bcm2835_gpio_write(D_C, HIGH);   // D/C = H
+  bcm2835_gpio_write(D_C, HIGH);	//D/C = H
 
-  bcm2835_gpio_write(RES, LOW);   // Reset
-  bcm2835_delay(100);
-  bcm2835_gpio_write(RES, HIGH);   // Reset off
-  bcm2835_delay(100); 
+  bcm2835_gpio_write(RES, LOW);		//Reset
+  bcm2835_delay(200);
+  bcm2835_gpio_write(RES, HIGH);	//Reset off
+  bcm2835_delay(200); 
 }
 #endif
 
 // TFT initialize
-//  see M-TM022-SPI demo code(8051)
 void lcdSetup(void){
-  lcdWriteCommandByte(0xC0);    //Power control 
-  lcdWriteDataByte(0x23);   //VRH[5:0] 
+  lcdWriteCommandByte(0xC0);		//Power Control 1
+  lcdWriteDataByte(0x23); 
 
-  lcdWriteCommandByte(0xC1);    //Power control 
-  lcdWriteDataByte(0x10);   //SAP[2:0];BT[3:0] 
+  lcdWriteCommandByte(0xC1);		//Power Control 2
+  lcdWriteDataByte(0x10);
 
-  lcdWriteCommandByte(0xC5);    //VCM control 
-  lcdWriteDataByte(0x3e); //
+  lcdWriteCommandByte(0xC5);		//VCOM Control 1
+  lcdWriteDataByte(0x3e);
   lcdWriteDataByte(0x28); 
 
-  lcdWriteCommandByte(0xC7);    //VCM control2 
-  lcdWriteDataByte(0x86);  //--
+  lcdWriteCommandByte(0xC7);		//VCOM Control 2 
+  lcdWriteDataByte(0x86);
 
-  lcdWriteCommandByte(0x36);    // Memory Access Control 
-  lcdWriteDataByte(0x48); //
+  lcdWriteCommandByte(0x36);		//Memory Access Control 
+  lcdWriteDataByte(0x48);		//Left bottom start
 
-  lcdWriteCommandByte(0x3A);    
-  lcdWriteDataByte(0x55); 
+  lcdWriteCommandByte(0x3A);		//Pixel Format Set
+  lcdWriteDataByte(0x55);		//65K color: 16-bit/pixel
 
-  lcdWriteCommandByte(0xB1);    
+  lcdWriteCommandByte(0x20);		//Display Inversion OFF
+
+  lcdWriteCommandByte(0xB1);		//Frame Rate Control
   lcdWriteDataByte(0x00);  
   lcdWriteDataByte(0x18); 
 
-  lcdWriteCommandByte(0xB6);    // Display Function Control 
+  lcdWriteCommandByte(0xB6);		//Display Function Control 
   lcdWriteDataByte(0x08); 
-//  lcdWriteDataByte(0x82);
   lcdWriteDataByte(0xA2);
   lcdWriteDataByte(0x27);  
+  lcdWriteDataByte(0x00);  
 
-  lcdWriteCommandByte(0xF2);    // 3Gamma Function Disable 
+  lcdWriteCommandByte(0xF2);		//3Gamma Function Disable 
   lcdWriteDataByte(0x00); 
 
-  lcdWriteCommandByte(0x26);    //Gamma curve selected 
+  lcdWriteCommandByte(0x26);		//Gamma Set 
   lcdWriteDataByte(0x01); 
 
-  lcdWriteCommandByte(0xE0);    //Set Gamma 
+  lcdWriteCommandByte(0xE0);		//Positive Gamma Correction
   lcdWriteDataByte(0x0F); 
   lcdWriteDataByte(0x31); 
   lcdWriteDataByte(0x2B); 
@@ -244,7 +244,7 @@ void lcdSetup(void){
   lcdWriteDataByte(0x09); 
   lcdWriteDataByte(0x00); 
 
-  lcdWriteCommandByte(0XE1);    //Set Gamma 
+  lcdWriteCommandByte(0XE1);		//Negative Gamma Correction
   lcdWriteDataByte(0x00); 
   lcdWriteDataByte(0x0E); 
   lcdWriteDataByte(0x14); 
@@ -261,16 +261,15 @@ void lcdSetup(void){
   lcdWriteDataByte(0x36); 
   lcdWriteDataByte(0x0F); 
 
-  lcdWriteCommandByte(0x11);    //Exit Sleep 
+  lcdWriteCommandByte(0x11);			//Sleep Out 
 #ifdef BCM
-  bcm2835_delay(120); 
+  bcm2835_delay(200); 
 #endif
 #ifdef WPI
-  delay(120);
+  delay(200);
 #endif
   
-  lcdWriteCommandByte(0x29);    //Display on 
-//  lcdWriteCommandByte(0x2c);    //Memory Write
+  lcdWriteCommandByte(0x29);			//Display ON 
 }
 
 // Draw pixel
@@ -278,14 +277,17 @@ void lcdSetup(void){
 // y:Y coordinate
 // color:color
 void lcdDrawPixel(uint16_t x, uint16_t y, uint16_t color){
-  if (x < 0 || x >= _width) return;
-  if (y < 0 || y >= _height) return;
+  if (x >= _width) return;
+  if (y >= _height) return;
+
+  uint16_t _x = x + _offsetx;
+  uint16_t _y = y + _offsety;
   lcdWriteCommandByte(0x2A); // set column(x) address
-  lcdWriteDataWord(x);
-  lcdWriteDataWord(x);
+  lcdWriteDataWord(_x);
+  lcdWriteDataWord(_x);
   lcdWriteCommandByte(0x2B); // set Page(y) address
-  lcdWriteDataWord(y);
-  lcdWriteDataWord(y);
+  lcdWriteDataWord(_y);
+  lcdWriteDataWord(_y);
   lcdWriteCommandByte(0x2C); // Memory Write
   lcdWriteDataWord(color);
 }
@@ -299,19 +301,20 @@ void lcdDrawPixel(uint16_t x, uint16_t y, uint16_t color){
 void lcdDrawFillRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color) {
   int i,j; 
   if (x1 >= _width) return;
-  if (x1 < 0) x1=0;
-  if (x2 < 0) return;
   if (x2 >= _width) x2=_width-1;
   if (y1 >= _height) return;
-  if (y1 < 0) y1=0;
-  if (y2 < 0) return;
   if (y2 >= _height) y2=_height-1;
+
+  uint16_t _x1 = x1 + _offsetx;
+  uint16_t _x2 = x2 + _offsetx;
+  uint16_t _y1 = y1 + _offsety;
+  uint16_t _y2 = y2 + _offsety;
   lcdWriteCommandByte(0x2A); // set column(x) address
-  lcdWriteDataWord(x1);
-  lcdWriteDataWord(x2);
+  lcdWriteDataWord(_x1);
+  lcdWriteDataWord(_x2);
   lcdWriteCommandByte(0x2B); // set Page(y) address
-  lcdWriteDataWord(y1);
-  lcdWriteDataWord(y2);
+  lcdWriteDataWord(_y1);
+  lcdWriteDataWord(_y2);
   lcdWriteCommandByte(0x2C); // Memory Write
   for(i=x1;i<=x2;i++){
     for(j=y1;j<=y2;j++){
@@ -322,12 +325,17 @@ void lcdDrawFillRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_
 
 // Display Off
 void lcdDisplayOff(void) {
-  lcdWriteCommandByte(0x28);    //Display off
+  lcdWriteCommandByte(0x28);    //Display OFF
 }
  
 // Display On
 void lcdDisplayOn(void) {
-  lcdWriteCommandByte(0x29);    //Display on 
+  lcdWriteCommandByte(0x29);    //Display ON 
+}
+
+// Display Inversion On
+void lcdInversionOn(void) {
+  lcdWriteCommandByte(0x21);    //Display Inversion ON 
 }
 
 // Fill screen
@@ -465,12 +473,13 @@ void lcdDrawRoundRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16
 
   if(x1>x2) {
     temp=x1; x1=x2; x2=temp;
-  } // if
+  }
   
   if(y1>y2) {
     temp=y1; y1=y2; y2=temp;
-  } // if
-  
+  }
+  if (x2 - x1 < r) return; // Add 20190517
+  if (y2 - y1 < r) return; // Add 20190517
   
   x=0;
   y=-r;
@@ -605,7 +614,7 @@ if(_DEBUG_)printf("GetFontx rc=%d pw=%d ph=%d\n",rc,pw,ph);
     xd2 =  0;
     yd2 =  0;
     xss =  x;
-    yss =  y + ph - 1;
+    yss =  y + (ph - 1);
     xsd =  1;
     ysd =  0;
     next = x + pw;
@@ -615,7 +624,7 @@ if(_DEBUG_)printf("GetFontx rc=%d pw=%d ph=%d\n",rc,pw,ph);
     xd2 =  0;
     yd2 =  0;
     xss =  x;
-    yss =  y - ph + 1;
+    yss =  y - (ph + 1);
     xsd =  1;
     ysd =  0;
     next = x - pw;
@@ -624,7 +633,7 @@ if(_DEBUG_)printf("GetFontx rc=%d pw=%d ph=%d\n",rc,pw,ph);
     yd1 =  0;
     xd2 = -1;
     yd2 = -1;
-    xss =  x + ph;
+    xss =  x + (ph - 1); // Bug Fix
     yss =  y;
     xsd =  0;
     ysd =  1;
@@ -634,7 +643,7 @@ if(_DEBUG_)printf("GetFontx rc=%d pw=%d ph=%d\n",rc,pw,ph);
     yd1 =  0;
     xd2 = +1;
     yd2 = +1;
-    xss =  x - ph - 1;
+    xss =  x - (ph - 1); // Bug Fix
     yss =  y;
     xsd =  0;
     ysd =  1;
@@ -702,6 +711,7 @@ if(_DEBUG_)printf("sjis=%04x\n",sjis[0]);
 // color:color
 int lcdDrawUTF8String(FontxFile *fx, uint16_t x,uint16_t y,unsigned char *utfs,uint16_t color) {
 
+if(_DEBUG_)printf("lcdDrawUTF8String start x=%d y=%d\n",x,y);
   int i;
   int spos;
   uint16_t sjis[64];
@@ -718,6 +728,7 @@ if(_DEBUG_)printf("sjis[%d]=%x y=%d\n",i,sjis[i],y);
     if (_FONT_DIRECTION_ == 3)
       y=lcdDrawSJISChar(fx,x,y,sjis[i],color);
   }
+if(_DEBUG_)printf("lcdDrawUTF8String end x=%d y=%d\n",x,y);
   if (_FONT_DIRECTION_ == 0) return x;
   if (_FONT_DIRECTION_ == 2) return x;
   if (_FONT_DIRECTION_ == 1) return y;

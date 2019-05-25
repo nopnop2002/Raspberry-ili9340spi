@@ -27,17 +27,20 @@ bool Fontx_openFontxFile(FontxFile *fx)
 {
   FILE *f;
 
-  if(!fx->opened){
+  if(fx->opened == 0){
     fx->opened = true;
+if(FontxDebug)printf("[Fontx_openFontxFile]fx->path=[%s]\n",fx->path);
     f = fopen(fx->path,"r");
     if(!f){
       fx->valid = false;
       printf("FsFontx:%s not found.\n",fx->path);
     } else {
+if(FontxDebug)printf("[Fontx_openFontxFile]fopen ok\n");
       fx->file = f;
       char buf[18];
 
       fread(buf, sizeof buf, 1, fx->file);
+if(FontxDebug)printf("[Fontx_openFontxFile]fread ok\n");
 //      for(i=0;i<sizeof(buf);i++) {
 //        printf("buf[%d]=%x\n",i,buf[i]);
 //      }
@@ -168,7 +171,7 @@ bool GetFontx(FontxFile *fxs, uint32_t sjis , uint8_t *pGlyph,
 if(FontxDebug)printf("[GetFontx]sjis=%x %d\n",sjis,sjis);
   for(i=0; i<2; i++){
     if(!Fontx_openFontxFile(&fxs[i])) continue;
-//    printf("openFontxFile[%d]\n",i);
+if(FontxDebug)printf("openFontxFile[%d] end\n",i);
     
     if(sjis < 0x100){
       if(fxs[i].is_ank){
