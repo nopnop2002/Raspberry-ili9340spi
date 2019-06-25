@@ -40,31 +40,37 @@ OPi ZERO have CE1 and GPIO8.
 # Build using bcm2835 library   
 RPi Only, Very fast   
 
-wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.56.tar.gz   
-tar zxvf bcm2835-1.56.tar.gz   
-cd bcm2835-1.56   
-./configure   
-make   
-sudo make check   
-sudo make install   
+```
+wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.56.tar.gz
+tar zxvf bcm2835-1.56.tar.gz
+cd bcm2835-1.56
+./configure
+make
+sudo make check
+sudo make install
+```
 
 __\* This tool require 1.56 or later.__   
 __\* Because this tool uses bcm2835_spi_write.__   
 
 
+```
 cd $HOME   
-git clone https://github.com/nopnop2002/ili9340spi_rpi   
-cd ili9340spi_rpi   
-cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM   
+git clone https://github.com/nopnop2002/ili9340spi_rpi
+cd ili9340spi_rpi
+cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM
+```
 
 ----
 
 # Build using WiringPi/WiringOp library   
 Both of RPi/OPi, But slow   
 
-git clone https://github.com/nopnop2002/ili9340spi_rpi   
-cd ili9340spi_rpi   
-cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -DWPI   
+```
+git clone https://github.com/nopnop2002/ili9340spi_rpi
+cd ili9340spi_rpi
+cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -DWPI
+```
 
 ----
 

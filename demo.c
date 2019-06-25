@@ -13,10 +13,10 @@
 #define _DEBUG_ 0
 
 //When you'd like to wait by a keyboard entries, enable this line.
-#define WAIT inputKey()
+//#define WAIT inputKey()
 
 //When you'd like to wait in the waiting time, enable this line.
-//#define WAIT sleep(10)
+#define WAIT sleep(5)
 
 void inputKey() {
   char ch;
