@@ -1,4 +1,4 @@
-# ili9340spi_rpi
+# Raspberry-ili9340spi
 ILI9340 SPI TFT Library for Raspberry Pi/Orange Pi
 
 You can show a chart to ILI9340/ILI9341/ILI9163C/ST7735 SPI TFT.   
@@ -56,8 +56,8 @@ __\* Because this tool uses bcm2835_spi_write.__
 
 ```
 cd $HOME   
-git clone https://github.com/nopnop2002/ili9340spi_rpi
-cd ili9340spi_rpi
+git clone https://github.com/nopnop2002/Raspberry-ili9340spi
+cd Raspberry-ili9340spi
 cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM
 ```
 
@@ -67,8 +67,8 @@ cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM
 Both of RPi/OPi, But slow   
 
 ```
-git clone https://github.com/nopnop2002/ili9340spi_rpi
-cd ili9340spi_rpi
+git clone https://github.com/nopnop2002/Raspberry-ili9340spi
+cd Raspberry-ili9340spi
 cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -DWPI
 ```
 
