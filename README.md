@@ -170,8 +170,14 @@ In order to modify and redistribute the IPA font, it is named "IL Font" accordin
 # FONTX format   
 You can add your original font file.   
 Please refer [this](http://elm-chan.org/docs/dosv/fontx_e.html) page about FONTX format.   
+
 ```
-Fontx_init(fx,"./fontx/YourOriginalFont.FNT",""); // Use your original font
+FontxFile yourFont[2];
+Fontx_init(yourFont,"./fontx/AlphaNumeric_font","./fontx/JAPANESE_font");
+uint8_t ascii[10];
+strcpy((char *)ascii, "MyFont");
+uint16_t color = RED;
+lcdDrawUTF8String(yourFont, xpos, ypos, ascii, color);
 ```
 
 # FONTX Editor   
@@ -183,11 +189,11 @@ Developer page is [here](http://elm-chan.org/fsw_e.html).
 
 
 This library uses the following as default fonts:   
-- font/ILGH16XB.FNT // 8x16Dot Gothic
-- font/ILGH24XB.FNT // 12x24Dot Gothic
-- font/ILGH32XB.FNT // 16x32Dot Gothic
-- font/ILMH16XB.FNT // 8x16Dot Mincyo
-- font/ILMH24XB.FNT // 12x24Dot Mincyo
-- font/ILMH32XB.FNT // 16x32Dot Mincyo
+- fontx/ILGH16XB.FNT fontx/ILGZ16XB.FNT // 8x16Dot Gothic
+- fontx/ILGH24XB.FNT fontx/ILGZ24XB.FNT // 12x24Dot Gothic
+- fontx/ILGH32XB.FNT fontx/ILGZ32XB.FNT // 16x32Dot Gothic
+- fontx/ILMH16XB.FNT fontx/ILMZ16XF.FNT // 8x16Dot Mincyo
+- fontx/ILMH24XB.FNT fontx/ILMZ24XF.FNT // 12x24Dot Mincyo
+- fontx/ILMH32XB.FNT fontx/ILMZ32XF.FNT // 16x32Dot Mincyo
 
 Changing this file will change the font.
