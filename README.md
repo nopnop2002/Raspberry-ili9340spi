@@ -12,7 +12,7 @@ I tested these TFT.
 2.4 inch 240x320 ILI9341   
 2.4 inch 240x320 ILI9341   
 
-----
+---
 
 # Wirering   
 
@@ -35,7 +35,7 @@ Opi have only 1 SPI.
 OPi-PC have CE0 and GPIO8.  
 OPi ZERO have CE1 and GPIO8.   
 
-----
+---
 
 # Build using bcm2835 library   
 RPi Only, Very fast   
@@ -61,7 +61,7 @@ cd Raspberry-ili9340spi
 cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM
 ```
 
-----
+---
 
 # Build using WiringPi/WiringOp library   
 Both of RPi/OPi, But slow   
@@ -72,7 +72,7 @@ cd Raspberry-ili9340spi
 cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -DWPI
 ```
 
-----
+---
 
 # TFT resolution and GRAM offset   
 TFT resolution is set to tft.conf.   
@@ -94,7 +94,7 @@ It use GRAM offset which set to tft.conf.
 ![ili9340-20](https://user-images.githubusercontent.com/6020549/58363268-65f57200-7edc-11e9-8cc8-af25397d5e24.JPG)
 ![ili9340-21](https://user-images.githubusercontent.com/6020549/58363269-65f57200-7edc-11e9-89f9-8ad644e0b279.JPG)
 
-----
+---
 
 This library can use ILI9341 TFT.   
 
@@ -106,7 +106,7 @@ From left 2.8" ILI9341,2.4" ILI9341, 2.2" ILI9340.
 
 ![ili9341-c](https://cloud.githubusercontent.com/assets/6020549/25058093/02f7680a-21b1-11e7-8f7c-578e6127ca7e.JPG)
 
-----
+---
 
 This library can use ILI9163C/ST7735 TFT.   
 
@@ -118,7 +118,7 @@ From left to right.
 
 ![ili9163-1](https://user-images.githubusercontent.com/6020549/28749424-d9c5af2e-7501-11e7-9e3c-a88376ac015f.JPG)
 
-----
+---
 
 # A library of XPT2046 Touch Screen is included in this library   
 
@@ -143,7 +143,7 @@ Wirering
 
 (*) You can change any pin.   
 
-----
+---
 
 cc -o xpt xpt.c xpt2046.c -lbcm2835   
 
@@ -151,7 +151,7 @@ If you touch screen, point will show.
 
 ![touch-11](https://cloud.githubusercontent.com/assets/6020549/25060732/9b4ccd2e-21df-11e7-9f08-0b7377a07f10.jpg)
 
-----
+---
 
 cc -o touch touch.c fontx.c ili9340.c xpt2046.c -lbcm2835 -lm -DBCM
 
@@ -159,3 +159,35 @@ If you touch area, number will show.
 
 ![touch-12](https://cloud.githubusercontent.com/assets/6020549/25060736/af89c170-21df-11e7-9789-1705e81e4692.JPG)
 
+---
+
+# Font File   
+This tool uses an "IL Font" that has been converted from "IPA fonts" to FONTX format fonts.   
+This distribution is distributed under the license of the original distribution IPA font.   
+The license of IPA font is in IPA_Font_License_Agreement_v1.0.txt.   
+In order to modify and redistribute the IPA font, it is named "IL Font" according to the license terms.   
+
+# FONTX format   
+You can add your original font file.   
+Please refer [this](http://elm-chan.org/docs/dosv/fontx_e.html) page about FONTX format.   
+```
+Fontx_init(fx,"./fontx/YourOriginalFont.FNT",""); // Use your original font
+```
+
+# FONTX Editor   
+[There](http://elm-chan.org/fsw/fontxedit.zip) is FONTX Editor.   
+This runs on Windows10.   
+Developer page is [here](http://elm-chan.org/fsw_e.html).   
+
+![FontxEditor](https://user-images.githubusercontent.com/6020549/78731275-3b889800-797a-11ea-81ba-096dbf07c4b8.png)
+
+
+This library uses the following as default fonts:   
+- font/ILGH16XB.FNT // 8x16Dot Gothic
+- font/ILGH24XB.FNT // 12x24Dot Gothic
+- font/ILGH32XB.FNT // 16x32Dot Gothic
+- font/ILMH16XB.FNT // 8x16Dot Mincyo
+- font/ILMH24XB.FNT // 12x24Dot Mincyo
+- font/ILMH32XB.FNT // 16x32Dot Mincyo
+
+Changing this file will change the font.
