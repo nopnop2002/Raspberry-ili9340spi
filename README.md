@@ -21,7 +21,7 @@ I tested these TFT.
 |:-:|:-:|:-:|
 |VCC|--|3.3V|
 |GND|--|GND|
-|CS|--|Pin#24(*)|
+|CS|--|Pin#24(SPI CS0)|
 |RES|--|Pin#5(*)|
 |D/C|--|Pin#3(*)|
 |MOSI|--|Pin#19(SPI MOSI)|
@@ -33,7 +33,6 @@ I tested these TFT.
 ```
 #define D_C  2  // GPIO2=Pin#3
 #define RES  3  // GPIO3=Pin#5
-#define C_S  8  // GPIO8=Pin#24
 ```
 
 ---
@@ -158,7 +157,7 @@ Wirering
 |MOSI|--|Pin#19(SPI MOSI)|
 |D/C|--|Pin#3(*)|
 |RES|--|Pin#5(*)|
-|CS|--|Pin#24(*)|
+|CS|--|Pin#24(SPI CS0)|
 |GND|--|GND|
 |VCC|--|3.3V|
 
