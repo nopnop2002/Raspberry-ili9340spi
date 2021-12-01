@@ -144,24 +144,26 @@ I ported from [here](https://github.com/xofc/xpt2uinput).
 
 Wirering   
 
-|TFT||Rpi|
-|:-:|:-:|:-:|
-|T_IRQ|--|Pin#22(*)|
-|T_OUT|--|Pin#21(SPI MISO)|
-|T_DIN|--|Pin#19(SPI MOSI)|
-|T_CS|--|Pin#26(SPI CE1)|
-|T_CLK|--|Pin#23(SPI SCLK)|
-|MISO|--|N/C|
-|LED|--|3.3V|
-|SCK|--|Pin#23(SPI SCLK)|
-|MOSI|--|Pin#19(SPI MOSI)|
-|D/C|--|Pin#3(*)|
-|RES|--|Pin#5(*)|
-|CS|--|Pin#24(SPI CS0)|
-|GND|--|GND|
-|VCC|--|3.3V|
+|TFT||Rpi||
+|:-:|:-:|:-:|:-:|
+|T_IRQ|--|Pin#22|(*)|
+|T_OUT|--|Pin#21(SPI MISO)|(**)|
+|T_DIN|--|Pin#19(SPI MOSI)|(**)|
+|T_CS|--|Pin#26(SPI CE1)||
+|T_CLK|--|Pin#23(SPI SCLK)|(**)|
+|MISO|--|N/C||
+|LED|--|3.3V||
+|SCK|--|Pin#23(SPI SCLK)|(**)|
+|MOSI|--|Pin#19(SPI MOSI)|(**)|
+|D/C|--|Pin#3(*)||
+|RES|--|Pin#5(*)||
+|CS|--|Pin#24(SPI CS0)||
+|GND|--|GND||
+|VCC|--|3.3V||
 
 (*) You can change any pin.   
+
+(**) SPI is shared by TFT and XPT2046.   
 
 ---
 
