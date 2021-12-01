@@ -1,8 +1,9 @@
 # Raspberry-ili9340spi
-ILI9340 SPI TFT Library for Raspberry Pi/Orange Pi
+ILI9340 SPI TFT Library for Raspberry Pi.   
+This may works with other boards like OrangePi/NanoPi.   
 
 You can show a chart to ILI9340/ILI9341/ILI9163C/ST7735 SPI TFT.   
-You can choose bmc2835 library/WiringPi(WiringOp) library.   
+You can choose bmc2835 library/WiringPi library.   
 
 I tested these TFT.   
 1.44 inch 128x128 ST7735   
@@ -20,7 +21,7 @@ I tested these TFT.
 |:-:|:-:|:-:|
 |VCC|--|3.3V|
 |GND|--|GND|
-|CS|--|Pin#24(SPI CE0)|
+|CS|--|Pin#24(*)|
 |RES|--|Pin#5(*)|
 |D/C|--|Pin#3(*)|
 |MOSI|--|Pin#19(SPI MOSI)|
@@ -29,11 +30,11 @@ I tested these TFT.
 |MISO|--|N/C|
 
 (*) You can change any pin.   
-
-Note:   
-Opi have only 1 SPI.   
-OPi-PC have CE0 and GPIO8.  
-OPi ZERO have CE1 and GPIO8.   
+```
+#define D_C  2  // GPIO2=Pin#3
+#define RES  3  // GPIO3=Pin#5
+#define C_S  8  // GPIO8=Pin#24
+```
 
 ---
 
@@ -84,6 +85,11 @@ git clone https://github.com/nopnop2002/Raspberry-ili9340spi
 cd Raspberry-ili9340spi
 cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -DWPI
 ```
+
+Note:   
+Opi have only 1 SPI.   
+OPi-PC have CE0 and GPIO8.  
+OPi ZERO have CE1 and GPIO8.   
 
 ---
 
