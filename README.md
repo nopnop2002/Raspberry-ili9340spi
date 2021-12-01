@@ -65,7 +65,7 @@ cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM
 
 # Build using WiringPi library   
 This project uses the wiringPiSetupGpio() function to initialize GPIOs.   
-Then use the wiringPiSPISetup () function to initialize the SPI.   
+Then use the wiringPiSPISetup() function to initialize the SPI.   
 If you use it on a board other than the RPI board, you may need to change the GPIO number.   
 ```
 #define D_C  2  // GPIO2=Pin#3
