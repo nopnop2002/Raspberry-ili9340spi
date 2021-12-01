@@ -146,24 +146,24 @@ Wirering
 
 |TFT||Rpi||
 |:-:|:-:|:-:|:-:|
-|T_IRQ|--|Pin#22|(*)|
-|T_OUT|--|Pin#21(SPI MISO)|(**)|
-|T_DIN|--|Pin#19(SPI MOSI)|(**)|
+|T_IRQ|--|Pin#22|(*1)|
+|T_OUT|--|Pin#21(SPI MISO)|(*2)|
+|T_DIN|--|Pin#19(SPI MOSI)|(*2)|
 |T_CS|--|Pin#26(SPI CE1)||
-|T_CLK|--|Pin#23(SPI SCLK)|(**)|
+|T_CLK|--|Pin#23(SPI SCLK)|(*2)|
 |MISO|--|N/C||
 |LED|--|3.3V||
-|SCK|--|Pin#23(SPI SCLK)|(**)|
-|MOSI|--|Pin#19(SPI MOSI)|(**)|
-|D/C|--|Pin#3(*)||
-|RES|--|Pin#5(*)||
+|SCK|--|Pin#23(SPI SCLK)|(*2)|
+|MOSI|--|Pin#19(SPI MOSI)|(*2)|
+|D/C|--|Pin#3|(*1)|
+|RES|--|Pin#5|(*1)|
 |CS|--|Pin#24(SPI CS0)||
 |GND|--|GND||
 |VCC|--|3.3V||
 
-(*) You can change any pin.   
+(*1) You can change any pin.   
 
-(**) SPI is shared by TFT and XPT2046.   
+(*2) SPI is shared by TFT and XPT2046.   
 
 ---
 
