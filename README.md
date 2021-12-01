@@ -158,7 +158,7 @@ Wirering
 |MOSI|--|Pin#19(SPI MOSI)|
 |D/C|--|Pin#3(*)|
 |RES|--|Pin#5(*)|
-|CS|--|Pin#24(SPI CE0)|
+|CS|--|Pin#24(*)|
 |GND|--|GND|
 |VCC|--|3.3V|
 
