@@ -63,8 +63,21 @@ cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM
 
 ---
 
-# Build using WiringPi/WiringOp library   
-Both of RPi/OPi, But slow   
+# Build using WiringPi library   
+This project uses the wiringPiSetupGpio() function to initialize GPIOs.   
+Then use the wiringPiSPISetup () function to initialize the SPI.   
+If you use it on a board other than the RPI board, you may need to change the GPIO number.   
+```
+#define D_C  2  // GPIO2=Pin#3
+#define RES  3  // GPIO3=Pin#5
+#define C_S  8  // GPIO8=Pin#24
+```
+
+As far as I know, there are these libraries.   
+- WiringPi for OrangePi   
+- WiringPi for BananaPi   
+- WiringPi for NanoPi   
+- WiringPi for Pine-64   
 
 ```
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
