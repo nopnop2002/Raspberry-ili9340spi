@@ -120,7 +120,8 @@ From left to right.
 
 ---
 
-# A library of XPT2046 Touch Screen is included in this library   
+# XPT2046 Touch Screen   
+A library of XPT2046 Touch Screen is included in this library.   
 I ported from [here](https://github.com/xofc/xpt2uinput).
 
 Wirering   
