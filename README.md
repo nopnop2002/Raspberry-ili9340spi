@@ -140,7 +140,7 @@ From left to right.
 
 # XPT2046 Touch Screen   
 There is a TFT equipped with XPT2046.   
-![XPT2046-3](https://user-images.githubusercontent.com/6020549/144333720-05c10c42-999b-407e-960c-82399940f248.jpg)
+![XPT2046-3](https://user-images.githubusercontent.com/6020549/144333924-5236bff3-3f4d-4be4-8e99-b6e31878e4f3.jpg)
 
 A library of XPT2046 Touch Screen is included in this library.   
 I ported from [here](https://github.com/xofc/xpt2uinput).
