@@ -19,7 +19,7 @@ int ReadTFTConfig(char *path, int *width, int *height, int *offsetx, int *offset
 	FILE *fp;
 	char buff[128];
 
-//	printf("path=%s\n",path);
+	//printf("path=%s\n",path);
 	fp = fopen(path,"r");
 	if(fp == NULL) return 0;
 	while (fgets(buff,128,fp) != NULL) {
@@ -49,7 +49,8 @@ int main(int argc, char **argv)
 	int screenHeight = 0;
 	int offsetx = 0;
 	int offsety = 0;
-	uint16_t xpos,ypos;
+	uint16_t xpos;
+	uint16_t ypos;
 	uint16_t color;
 	uint8_t utf[64];
 	char dir[128];
@@ -104,7 +105,123 @@ if(_DEBUG_)printf("ReadTFTConfig:screenWidth=%d height=%d\n",screenWidth, screen
 	lcdReset();
 	lcdSetup();
 
-	//drawString
+	bcm2835_gpio_fsel(RPI_V2_GPIO_P1_22,BCM2835_GPIO_FSEL_INPT);
+
+	// Get font width & height
+	uint8_t buffer[FontxGlyphBufSize];
+	uint8_t fontWidth;
+	uint8_t fontHeight;
+	GetFontx(fx32G, 0, buffer, &fontWidth, &fontHeight);
+	printf("fontWidth=%d fontHeight=%d\n",fontWidth,fontHeight);
+
+	uint8_t ascii[24];
+	int pen_irq;
+
+	// Calibration
+	lcdFillScreen(BLACK);
+	tinfo._min_xc = 15;
+	tinfo._min_yc = 15;
+	//lcdDrawFillCircle(10, 10, 10, CYAN);
+	lcdDrawFillCircle(tinfo._min_xc, tinfo._min_yc, 10, CYAN);
+	strcpy((char *)ascii, "Calibration");
+	ypos = ((screenHeight - fontHeight) / 2) - 1;
+	xpos = (screenWidth + (strlen((char *)ascii) * fontWidth)) / 2;
+	lcdSetFontDirection(DIRECTION180);
+	lcdDrawUTF8String(fx32G, xpos, ypos, ascii, WHITE);
+	ypos = ypos + fontHeight;
+	int _xpos = xpos;
+	for(int i=0;i<10;i++) {
+		lcdDrawFillCircle(_xpos, ypos, fontWidth/2, RED);
+		_xpos = _xpos - fontWidth - 5;
+	}
+
+	int16_t xp = INT16_MIN;
+	int16_t yp = INT16_MAX;
+	int counter = 0;
+	while(1) {
+		usleep(10000);
+		pen_irq = bcm2835_gpio_lev(RPI_V2_GPIO_P1_22);
+		if (pen_irq == HIGH) continue;
+		int _xp;
+		int _yp;
+		xptGetxy(T_CS, &_xp, &_yp);
+		//printf("counter=%d _xp=%d _yp=%d xp=%d yp=%d\n", counter, _xp, _yp, xp, yp);
+		if (_xp > xp) xp = _xp;
+		if (_yp < yp) yp = _yp;
+		counter++;
+		if (counter == 100) break;
+		if ((counter % 10) == 0) {
+			lcdInit(screenWidth, screenHeight, offsetx, offsety);
+			lcdDrawFillCircle(xpos, ypos, fontWidth/2, GREEN);
+			xpos = xpos - fontWidth - 5;
+		}
+	} // end while
+	printf("_min_xp=%d _min_yp=%d\n", xp, yp);
+	tinfo._min_xp = xp;
+	tinfo._min_yp = yp;
+
+	// Clear IRQ
+	lcdInit(screenWidth, screenHeight, offsetx, offsety);
+	lcdFillScreen(BLACK);
+	while(1) {
+		usleep(10000);
+		pen_irq = bcm2835_gpio_lev(RPI_V2_GPIO_P1_22);
+		if (pen_irq == HIGH) break;
+	} // end while
+
+	lcdFillScreen(BLACK);
+	tinfo._max_xc = screenWidth-10;
+	tinfo._max_yc = screenHeight-10;
+	//lcdDrawFillCircle(screenWidth-10, screenHeight-10, 10, CYAN);
+	lcdDrawFillCircle(tinfo._max_xc, tinfo._max_yc, 10, CYAN);
+	strcpy((char *)ascii, "Calibration");
+	ypos = ((screenHeight - fontHeight) / 2) - 1;
+	xpos = (screenWidth + (strlen((char *)ascii) * fontWidth)) / 2;
+	lcdSetFontDirection(DIRECTION180);
+	lcdDrawUTF8String(fx32G, xpos, ypos, ascii, WHITE);
+	ypos = ypos + fontHeight;
+	_xpos = xpos;
+	for(int i=0;i<10;i++) {
+		lcdDrawFillCircle(_xpos, ypos, fontWidth/2, RED);
+		_xpos = _xpos - fontWidth - 5;
+	}
+
+	xp = INT16_MAX;
+	yp = INT16_MIN;
+	counter = 0;
+	while(1) {
+		usleep(10000);
+		pen_irq = bcm2835_gpio_lev(RPI_V2_GPIO_P1_22);
+		if (pen_irq == HIGH) continue;
+		int _xp;
+		int _yp;
+		xptGetxy(T_CS, &_xp, &_yp);
+		//printf("counter=%d _xp=%d _yp=%d xp=%d yp=%d\n", counter, _xp, _yp, xp, yp);
+		if (_xp < xp) xp = _xp;
+		if (_yp > yp) yp = _yp;
+		counter++;
+		if (counter == 100) break;
+		if ((counter % 10) == 0) {
+			lcdInit(screenWidth, screenHeight, offsetx, offsety);
+			lcdDrawFillCircle(xpos, ypos, fontWidth/2, GREEN);
+			xpos = xpos - fontWidth - 5;
+		}
+	} // end while
+	printf("_max_xp=%d _max_yp=%d\n", xp, yp);
+	tinfo._max_xp = xp;
+	tinfo._max_yp = yp;
+
+	// Clear IRQ
+	lcdInit(screenWidth, screenHeight, offsetx, offsety);
+	lcdFillScreen(BLACK);
+	while(1) {
+		usleep(10000);
+		pen_irq = bcm2835_gpio_lev(RPI_V2_GPIO_P1_22);
+		if (pen_irq == HIGH) break;
+	} // end while
+	tinfo._calibration = false;
+
+	// Draw a button
 	lcdFillScreen(WHITE);
 	lcdSetFontDirection(DIRECTION90);
 	xpos = 180;
@@ -135,20 +252,15 @@ if(_DEBUG_)printf("ReadTFTConfig:screenWidth=%d height=%d\n",screenWidth, screen
 	}
 
 
-	// read xpt2046
-	int pen_irq;
-	int id;
-
-	bcm2835_gpio_fsel(RPI_V2_GPIO_P1_22,BCM2835_GPIO_FSEL_INPT);
-
+	// Read xpt2046
 	xpos = 40;
 	ypos = (screenHeight-1)-(32*1);
 	color = RED;
-	for (;;) {
+	while(1) {
 		usleep(10000);			/* do it anyway ; settle time when pen goes up */
 		pen_irq = bcm2835_gpio_lev(RPI_V2_GPIO_P1_22);
 		if (pen_irq == LOW) { /* P1.22 == PenIRQ is LOW : touch! pen is down */
-			id = xptGetPoint(T_CS, &tinfo);
+			int id = xptGetPoint(T_CS, &tinfo);
 			if (id != -1) {
 if(_DEBUG_)printf("id=%d\n",id);
 				lcdInit(screenWidth, screenHeight, offsetx, offsety);
@@ -157,6 +269,6 @@ if(_DEBUG_)printf("id=%d\n",id);
 				ypos = lcdDrawUTF8String(fx32G, xpos, ypos, utf, color);
 			}
 		}
-	} // end for
+	} // end while
 
 }
