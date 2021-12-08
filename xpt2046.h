@@ -2,22 +2,22 @@
 #include <sys/time.h>
 
 typedef struct {
-  uint32_t x1;
-  uint32_t x2;
-  uint32_t y1;
-  uint32_t y2;
-  uint32_t id;
+	uint32_t x1;
+	uint32_t x2;
+	uint32_t y1;
+	uint32_t y2;
+	uint32_t id;
 } TouchPoint;
 
 #define MAXTP 20
 
 typedef struct {
 	int _cs;
-  uint16_t tpc;
-  uint16_t tpx;
-  time_t lsec;
-  suseconds_t lusec;
-  TouchPoint tps[MAXTP];
+	uint16_t tpc;
+	uint16_t tpx;
+	time_t lsec;
+	suseconds_t lusec;
+	TouchPoint tps[MAXTP];
 	bool _calibration;
 	int16_t _min_xp; // Minimum xp calibration
 	int16_t _min_yp; // Minimum yp calibration
