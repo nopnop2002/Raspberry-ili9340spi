@@ -70,7 +70,7 @@ WiringPi library initializes GPIO in one of the following ways:
 - int wiringPiSetupPhys (void);   
 - int wiringPiSetupSys (void);   
 
-This project uses the wiringPiSetupGpio() function to initialize GPIOs.   
+This project uses the ```wiringPiSetupGpio()``` function to initialize GPIOs.   
 Then use the wiringPiSPISetup() function to initialize the SPI.   
 If you use it on a board other than the RPI board, you may need to change the GPIO number.   
 ```
