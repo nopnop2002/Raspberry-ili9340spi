@@ -64,6 +64,11 @@ cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM
 ---
 
 # Build using WiringPi library   
+WiringPi library initializes GPIO in one of the following ways:
+- int wiringPiSetup (void);   
+- int wiringPiSetupGpio (void);   
+- int wiringPiSetupPhys (void);   
+- int wiringPiSetupSys (void);   
 This project uses the wiringPiSetupGpio() function to initialize GPIOs.   
 Then use the wiringPiSPISetup() function to initialize the SPI.   
 If you use it on a board other than the RPI board, you may need to change the GPIO number.   
@@ -73,7 +78,7 @@ If you use it on a board other than the RPI board, you may need to change the GP
 #define C_S  8  // GPIO8=Pin#24
 ```
 
-As far as I know, there are these libraries.   
+As far as I know, there are these WiringPi libraries.   
 - WiringPi for OrangePi   
 - WiringPi for BananaPi   
 - WiringPi for NanoPi   
