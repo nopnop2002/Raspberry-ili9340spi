@@ -95,8 +95,8 @@ cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -pthread -DWPI -DSPI1
 
 ___Note for OrangePi___   
 Opi have only 1 SPI.   
-OPi-PC have SPI0 and GPIO8.  
-OPi ZERO have SPI1 and GPIO8.   
+OPi-PC has SPI0 on pin #24.   
+OPi-ZERO has SPI1 on pin #24.   
 
 ---
 
