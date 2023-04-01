@@ -158,8 +158,14 @@ void lcdInit(int width, int height, int offsetx, int offsety){
     printf("wiringPiSetup Error\n");
     return;
   }
+#ifdef SPI1
+  printf("Using Channel 1\n");
+  wiringPiSPISetup(1, 16000000);
+#else
+  printf("Using Channel 0\n");
   wiringPiSPISetup(0, 16000000);
-//  wiringPiSPISetup(0, 32000000);
+#endif
+  //wiringPiSPISetup(0, 32000000);
 
   _FONT_DIRECTION_ = DIRECTION0;
   _FONT_FILL_ = false;

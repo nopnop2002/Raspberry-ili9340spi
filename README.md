@@ -79,16 +79,24 @@ As far as I know, there are these libraries.
 - WiringPi for NanoPi   
 - WiringPi for Pine-64   
 
+### Using SPI0
 ```
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
 cd Raspberry-ili9340spi
-cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -DWPI
+cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -pthread -DWPI
+```
+
+### Using SPI1
+```
+git clone https://github.com/nopnop2002/Raspberry-ili9340spi
+cd Raspberry-ili9340spi
+cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -pthread -DWPI -DSPI1
 ```
 
 Note:   
 Opi have only 1 SPI.   
-OPi-PC have CE0 and GPIO8.  
-OPi ZERO have CE1 and GPIO8.   
+OPi-PC have SPI0 and GPIO8.  
+OPi ZERO have SPI1 and GPIO8.   
 
 ---
 
