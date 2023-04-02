@@ -133,12 +133,24 @@ Can be changed at compile time.
 - -DSPI_SPEED16 : 16MHz on all Rpi.   
 - -DSPI_SPEED32 : 32MHz on all Rpi.   
 
+---
 
 # TFT resolution and GRAM offset   
 TFT resolution is set to tft.conf.   
 
 If your TFT doesn't use a memory from 0th address in GRAM,
 It use GRAM offset which set to tft.conf.   
+
+```
+#width=128 height=128
+width=240 height=320
+#width=240 height=400
+
+#If TFT have GRAM offset
+#offsetx=2
+#offsety=1
+```
+
 
 ----
 
