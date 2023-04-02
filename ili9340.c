@@ -158,12 +158,24 @@ void lcdInit(int width, int height, int offsetx, int offsety){
     printf("wiringPiSetup Error\n");
     return;
   }
+
+#if defined SPI_SPEED32
+  int spi_speed = 32000000;
+#elif defined SPI_SPEED16
+  int spi_speed = 16000000;
+#else
+  int spi_speed = 8000000;
+#endif
+
 #ifdef SPI1
+  printf("Using SPI SPEED %dMHz\n", spi_speed);
   printf("Using SPI Channel 1\n");
-  wiringPiSPISetup(1, 16000000);
+  //wiringPiSPISetup(1, 16000000);
+  wiringPiSPISetup(1, spi_speed);
 #else
   printf("Using SPI Channel 0\n");
   wiringPiSPISetup(0, 16000000);
+  wiringPiSPISetup(0, spi_speed);
 #endif
   //wiringPiSPISetup(0, 32000000);
 
@@ -202,7 +214,17 @@ void lcdInit(int width, int height, int offsetx, int offsety){
   bcm2835_spi_begin();
   bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);
   bcm2835_spi_setDataMode(BCM2835_SPI_MODE0);
-  bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_8);
+#if defined SPI_SPEED32
+  bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_8); // 31.25MHz on Rpi2, 50MHz on RPI3
+  printf("Using SPI SPEED 31.25MHz on Rpi2, 50MHz on RPI3\n");
+#elif defined SPI_SPEED16
+  bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_16); // 15.625MHz on Rpi2, 25MHz on RPI3
+  printf("Using SPI SPEED 15.625MHz on Rpi2, 25MHz on RPI3\n");
+#else
+  bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_32); // 7.8125MHz on Rpi2, 12.5MHz on RPI3
+  printf("Using SPI SPEED 7.8125MHz on Rpi2, 12.5MHz on RPI3\n");
+#endif
+
 #ifdef SPI1
   printf("Using SPI Channel 1\n");
   bcm2835_spi_chipSelect(BCM2835_SPI_CS1);

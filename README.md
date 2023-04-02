@@ -76,6 +76,24 @@ sudo ./demo
 
 ---
 
+# SPI bus speed for bcm2835   
+By default it uses 7.8125MHz on Rpi2, 12.5MHz on RPI3.   
+Can be changed at compile time.   
+- -DSPI_SPEED16 : 15.625MHz on Rpi2, 25MHz on RPI3.   
+- -DSPI_SPEED32 : 31.25MHz on Rpi2, 50MHz on RPI3.   
+
+___50MHz is an overclock.___   
+
+---
+
+# SPI bus speed for WiringPi   
+By default it uses 8MHz on all Rpi.   
+Can be changed at compile time.   
+- -DSPI_SPEED16 : 16MHz on all Rpi.   
+- -DSPI_SPEED32 : 32MHz on all Rpi.   
+
+---
+
 # Build using WiringPi library   
 WiringPi library initializes GPIO in one of the following ways:
 - int wiringPiSetup (void);   
