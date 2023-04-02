@@ -29,11 +29,7 @@ I tested these TFT.
 |LED|--|3.3V||
 |MISO|--|N/C||
 
-(*1) You can change it to any pin by changing here.   
-```
-#define D_C  2  // GPIO2=Pin#3
-#define RES  3  // GPIO3=Pin#5
-```
+(*1) You can change it to any pin by changing source.   
 
 (*2) You can use CS1 by specifying compilation flags.   
 
@@ -55,6 +51,15 @@ sudo make install
 __\* This tool require 1.56 or later.__   
 __\* Because this tool uses bcm2835_spi_write.__   
 
+### Using other GPIO
+You can change GPIO to any pin by changing here.   
+```
+#ifdef BCM
+#include <bcm2835.h>
+#define D_C  2  // BCM GPIO2=Pin#3
+#define RES  3  // BCM GPIO3=Pin#5
+#endif
+```
 
 ### Using SPI0
 ```
@@ -82,6 +87,8 @@ Can be changed at compile time.
 
 ___50MHz is an overclock.___   
 
+
+
 ---
 
 # Build using WiringPi library   
@@ -91,12 +98,12 @@ WiringPi library initializes GPIO in one of the following ways:
 - int wiringPiSetupPhys (void);   
 - int wiringPiSetupSys (void);   
 
-This project uses the ```wiringPiSetupGpio()``` function to initialize GPIOs.   
+This project by default uses the ```wiringPiSetup()``` function to initialize GPIOs.   
 Then use the wiringPiSPISetup() function to initialize the SPI.   
 If you use it on a board other than the RPI board, you may need to change the GPIO number.   
 ```
-#define D_C  2  // GPIO2=Pin#3
-#define RES  3  // GPIO3=Pin#5
+#define D_C  8  // wPi GPIO8=Pin#3
+#define RES  9  // wPi GPIO9=Pin#5
 ```
 
 As far as I know, there are these WiringPi libraries.   
@@ -104,6 +111,16 @@ As far as I know, there are these WiringPi libraries.
 - WiringPi for BananaPi   
 - WiringPi for NanoPi   
 - WiringPi for Pine-64   
+
+
+If you want to initialize GPIO with wiringPiSetupGpio(), Use the -DGPIO compilation flag.   
+In this case, use the following GPIOs.   
+```
+#define D_C  2  // BCM GPIO2=Pin#3
+#define RES  3  // BCM GPIO3=Pin#5
+```
+
+
 
 ### Using SPI0
 ```
@@ -131,6 +148,8 @@ By default it uses 8MHz on all Rpi.
 Can be changed at compile time.   
 - -DSPI_SPEED16 : 16MHz on all Rpi.   
 - -DSPI_SPEED32 : 32MHz on all Rpi.   
+
+
 
 ---
 

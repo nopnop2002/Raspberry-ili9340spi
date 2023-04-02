@@ -32,18 +32,27 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
+
 #ifdef WPI
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
+#ifdef GPIO
+#define D_C  2  // BCM GPIO2=Pin#3
+#define RES  3  // BCM GPIO3=Pin#5
+#else
+#define D_C  8  // wPi GPIO8=Pin#3
+#define RES  9  // wPi GPIO9=Pin#5
 #endif
+#endif
+
+
 #ifdef BCM
 #include <bcm2835.h>
+#define D_C  2  // BCM GPIO2=Pin#3
+#define RES  3  // BCM GPIO3=Pin#5
 #endif
 
 #include "ili9340.h"
-
-#define D_C  2  // GPIO2=Pin#3
-#define RES  3  // GPIO3=Pin#5
 
 #define _DEBUG_   0
 
@@ -153,10 +162,19 @@ void lcdInit(int width, int height, int offsetx, int offsety){
   _offsetx = offsetx;
   _offsety = offsety;
 
+#ifdef GPIO
+  printf("Using wiringPiSetupGpio\n");
   if (wiringPiSetupGpio() == -1) {
     printf("wiringPiSetup Error\n");
     return;
   }
+#else
+  printf("Using wiringPiSetup\n");
+  if (wiringPiSetup() == -1) {
+    printf("wiringPiSetup Error\n");
+    return;
+  }
+#endif
 
 #if defined SPI_SPEED32
   int spi_speed = 32000000;
