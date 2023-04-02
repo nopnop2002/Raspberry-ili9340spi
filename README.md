@@ -113,7 +113,7 @@ As far as I know, there are these WiringPi libraries.
 - WiringPi for Pine-64   
 
 
-If you want to initialize GPIO with wiringPiSetupGpio(), Use the -DGPIO compilation flag.   
+If you want to initialize GPIO with ```wiringPiSetupGpio()```, Use the -DGPIO compilation flag.   
 In this case, use the following GPIOs.   
 ```
 #define D_C  2  // BCM GPIO2=Pin#3
