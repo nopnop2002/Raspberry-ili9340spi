@@ -35,7 +35,7 @@ I tested these TFT.
 #define RES  3  // GPIO3=Pin#5
 ```
 
-(*2) You can use CS1 using -DSPI1.   
+(*2) You can use CS1 by specifying -DSPI1.   
 
 ---
 
