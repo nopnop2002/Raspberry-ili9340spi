@@ -17,23 +17,25 @@ I tested these TFT.
 
 # Wirering   
 
-|TFT||Rpi/Opi|
-|:-:|:-:|:-:|
-|VCC|--|3.3V|
-|GND|--|GND|
-|CS|--|Pin#24(SPI CS0)|
-|RES|--|Pin#5(*)|
-|D/C|--|Pin#3(*)|
-|MOSI|--|Pin#19(SPI MOSI)|
-|SCK|--|Pin#23(SPI SCLK)|
-|LED|--|3.3V|
-|MISO|--|N/C|
+|TFT||Rpi/Opi||
+|:-:|:-:|:-:|:-:|
+|VCC|--|3.3V||
+|GND|--|GND||
+|CS|--|Pin#24(SPI CS0)|*2|
+|RES|--|Pin#5|*1|
+|D/C|--|Pin#3|*1|
+|MOSI|--|Pin#19(SPI MOSI)||
+|SCK|--|Pin#23(SPI SCLK)||
+|LED|--|3.3V||
+|MISO|--|N/C||
 
-(*) You can change it to any pin by changing here.   
+(*1) You can change it to any pin by changing here.   
 ```
 #define D_C  2  // GPIO2=Pin#3
 #define RES  3  // GPIO3=Pin#5
 ```
+
+(*2) You can use CS1 using -DSPI1.   
 
 ---
 
@@ -54,11 +56,22 @@ __\* This tool require 1.56 or later.__
 __\* Because this tool uses bcm2835_spi_write.__   
 
 
+### Using SPI0
 ```
 cd $HOME   
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
 cd Raspberry-ili9340spi
 cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM
+sudo ./demo
+```
+
+### Using SPI1
+```
+cd $HOME   
+git clone https://github.com/nopnop2002/Raspberry-ili9340spi
+cd Raspberry-ili9340spi
+cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM -DSPI1
+sudo ./demo
 ```
 
 ---
@@ -90,6 +103,7 @@ As far as I know, there are these WiringPi libraries.
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
 cd Raspberry-ili9340spi
 cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -pthread -DWPI
+sudo ./demo
 ```
 
 ### Using SPI1
@@ -97,6 +111,7 @@ cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -pthread -DWPI
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
 cd Raspberry-ili9340spi
 cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -pthread -DWPI -DSPI1
+sudo ./demo
 ```
 
 ___Note for OrangePi___   

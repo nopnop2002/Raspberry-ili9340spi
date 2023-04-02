@@ -159,10 +159,10 @@ void lcdInit(int width, int height, int offsetx, int offsety){
     return;
   }
 #ifdef SPI1
-  printf("Using Channel 1\n");
+  printf("Using SPI Channel 1\n");
   wiringPiSPISetup(1, 16000000);
 #else
-  printf("Using Channel 0\n");
+  printf("Using SPI Channel 0\n");
   wiringPiSPISetup(0, 16000000);
 #endif
   //wiringPiSPISetup(0, 32000000);
@@ -203,7 +203,13 @@ void lcdInit(int width, int height, int offsetx, int offsety){
   bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);
   bcm2835_spi_setDataMode(BCM2835_SPI_MODE0);
   bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_8);
+#ifdef SPI1
+  printf("Using SPI Channel 1\n");
+  bcm2835_spi_chipSelect(BCM2835_SPI_CS1);
+#else
+  printf("Using SPI Channel 0\n");
   bcm2835_spi_chipSelect(BCM2835_SPI_CS0);
+#endif
   bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, LOW);
   // Send a byte to the slave and simultaneously read a byte back from the slave
   // If you tie MISO to MOSI, you should read back what was sent
