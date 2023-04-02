@@ -97,7 +97,6 @@ If you use it on a board other than the RPI board, you may need to change the GP
 ```
 #define D_C  2  // GPIO2=Pin#3
 #define RES  3  // GPIO3=Pin#5
-#define C_S  8  // GPIO8=Pin#24
 ```
 
 As far as I know, there are these WiringPi libraries.   
