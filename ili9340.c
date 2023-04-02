@@ -44,7 +44,6 @@
 
 #define D_C  2  // GPIO2=Pin#3
 #define RES  3  // GPIO3=Pin#5
-#define C_S  8  // GPIO8=Pin#24
 
 #define _DEBUG_   0
 
@@ -166,9 +165,9 @@ void lcdInit(int width, int height, int offsetx, int offsety){
 #else
   int spi_speed = 8000000;
 #endif
+  printf("Using SPI SPEED %dMHz\n", spi_speed/1000000);
 
 #ifdef SPI1
-  printf("Using SPI SPEED %dMHz\n", spi_speed);
   printf("Using SPI Channel 1\n");
   //wiringPiSPISetup(1, 16000000);
   wiringPiSPISetup(1, spi_speed);
@@ -187,10 +186,10 @@ void lcdInit(int width, int height, int offsetx, int offsety){
 void lcdReset(void){
   pinMode(D_C, OUTPUT);
   pinMode(RES, OUTPUT);
-  pinMode(C_S, OUTPUT);
   digitalWrite(D_C, HIGH);
-  digitalWrite(C_S, LOW);
 
+  digitalWrite(RES, HIGH);
+  delay(100);
   digitalWrite(RES, LOW);
   delay(100);
   digitalWrite(RES, HIGH);
@@ -246,8 +245,10 @@ void lcdInit(int width, int height, int offsetx, int offsety){
 void lcdReset(void){
   bcm2835_gpio_fsel(D_C,BCM2835_GPIO_FSEL_OUTP); // D/C
   bcm2835_gpio_fsel(RES,BCM2835_GPIO_FSEL_OUTP); // Reset
-  //bcm2835_gpio_write(D_C, HIGH);
+  bcm2835_gpio_write(D_C, HIGH);
 
+  bcm2835_gpio_write(RES, HIGH);
+  bcm2835_delay(100); 
   bcm2835_gpio_write(RES, LOW);
   bcm2835_delay(100);
   bcm2835_gpio_write(RES, HIGH);
