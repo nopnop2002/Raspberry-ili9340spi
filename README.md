@@ -29,8 +29,7 @@ I tested these TFT.
 |LED|--|3.3V|
 |MISO|--|N/C|
 
-(*)   
-You can change it to any pin by changing here.   
+(*) You can change it to any pin by changing here.   
 ```
 #define D_C  2  // GPIO2=Pin#3
 #define RES  3  // GPIO3=Pin#5
