@@ -74,23 +74,13 @@ cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM -DSPI1
 sudo ./demo
 ```
 
----
-
-# SPI bus speed for bcm2835   
+### SPI bus speed for bcm2835   
 By default it uses 7.8125MHz on Rpi2, 12.5MHz on RPI3.   
 Can be changed at compile time.   
 - -DSPI_SPEED16 : 15.625MHz on Rpi2, 25MHz on RPI3.   
 - -DSPI_SPEED32 : 31.25MHz on Rpi2, 50MHz on RPI3.   
 
 ___50MHz is an overclock.___   
-
----
-
-# SPI bus speed for WiringPi   
-By default it uses 8MHz on all Rpi.   
-Can be changed at compile time.   
-- -DSPI_SPEED16 : 16MHz on all Rpi.   
-- -DSPI_SPEED32 : 32MHz on all Rpi.   
 
 ---
 
@@ -137,7 +127,12 @@ Opi have only 1 SPI.
 OPi-PC has SPI0 on pin 24.   
 OPi-ZERO has SPI1 on pin 24.   
 
----
+### SPI bus speed for WiringPi   
+By default it uses 8MHz on all Rpi.   
+Can be changed at compile time.   
+- -DSPI_SPEED16 : 16MHz on all Rpi.   
+- -DSPI_SPEED32 : 32MHz on all Rpi.   
+
 
 # TFT resolution and GRAM offset   
 TFT resolution is set to tft.conf.   
