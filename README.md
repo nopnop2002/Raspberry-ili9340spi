@@ -56,8 +56,8 @@ You can change GPIO to any pin by changing here.
 ```
 #ifdef BCM
 #include <bcm2835.h>
-#define D_C  2  // BCM GPIO2=Pin#3
-#define RES  3  // BCM GPIO3=Pin#5
+#define D_C  2  // BCM IO2=Pin#3
+#define RES  3  // BCM IO3=Pin#5
 #endif
 ```
 
@@ -100,10 +100,10 @@ WiringPi library initializes GPIO in one of the following ways:
 
 This project by default uses the ```wiringPiSetup()``` function to initialize GPIOs.   
 Then use the wiringPiSPISetup() function to initialize the SPI.   
-If you use it on a board other than the RPI board, you may need to change the GPIO number.   
+If you use it on a board other than the RPI board, you may need to change the WiringPi number.
 ```
-#define D_C  8  // wPi GPIO8=Pin#3
-#define RES  9  // wPi GPIO9=Pin#5
+#define D_C  8  // wPi IO8=Pin#3
+#define RES  9  // wPi IO9=Pin#5
 ```
 
 As far as I know, there are these WiringPi libraries.   
@@ -116,8 +116,8 @@ As far as I know, there are these WiringPi libraries.
 If you want to initialize GPIO with ```wiringPiSetupGpio()```, Use the -DGPIO compilation flag.   
 In this case, use the following GPIOs.   
 ```
-#define D_C  2  // BCM GPIO2=Pin#3
-#define RES  3  // BCM GPIO3=Pin#5
+#define D_C  2  // BCM IO2=Pin#3
+#define RES  3  // BCM IO3=Pin#5
 ```
 
 
