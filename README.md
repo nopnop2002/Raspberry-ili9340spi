@@ -39,6 +39,8 @@ This project can be built with either:
 (*2) You can use CS1 by specifying compilation flags.   
 
 (*3) For Software SPI, you can change it to any pin by changing source.   
+
+
 ---
 
 # Build using bcm2835 library   
