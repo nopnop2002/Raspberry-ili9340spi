@@ -22,7 +22,7 @@ This project can be built with either:
 
 # Wirering   
 
-|TFT||Rpi/Opi||
+|TFT||GPIO Header||
 |:-:|:-:|:-:|:-:|
 |VCC|--|3.3V||
 |GND|--|GND||
