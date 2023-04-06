@@ -26,11 +26,11 @@ This project can be built with either:
 |:-:|:-:|:-:|:-:|
 |VCC|--|3.3V||
 |GND|--|GND||
-|CS|--|Pin#24(SPI CS0)|*2|
+|CS|--|Pin#24(SPI CS0)|*2 *3|
 |RES|--|Pin#12|*1|
 |D/C|--|Pin#11|*1|
-|MOSI|--|Pin#19(SPI MOSI)||
-|SCK|--|Pin#23(SPI SCLK)||
+|MOSI|--|Pin#19(SPI MOSI)|*3|
+|SCK|--|Pin#23(SPI SCLK)|*3|
 |LED|--|3.3V||
 |MISO|--|N/C||
 
@@ -38,6 +38,7 @@ This project can be built with either:
 
 (*2) You can use CS1 by specifying compilation flags.   
 
+(*3) For Software SPI, you can change it to any pin by changing source.   
 ---
 
 # Build using bcm2835 library   
