@@ -7,15 +7,15 @@
 // [Pin connection]
 // ILI9340-SPI     Rpi(pin)
 // ------------------------
-// MISO------------MISO(21)
-// LED---220ohm----3.3V( 1)
-// SCK-------------SCLK(23)
+// VCC-------------3.3V
+// GND-------------GND
+// CS--------------CS0 (24)
+// RES-------------IO18(12)
+// D/C-------------IO17(11) LOW = COMMAND / HIGH = DATA
 // MOSI------------MOSI(19)
-// D/C-------------IO02( 3)  LOW = 0 = COMMAND
-// RES-------------IO03( 5)  LOW = 0 = RESET
-// CS--------------CS0 (24)  LOW = 0 = Chip Select
-// GND-------------0V  ( 6)
-// VCC-------------3.3V( 1)
+// SCK-------------SCLK(23)
+// LED-------------3.3V
+// MISO------------N/C
 // ------------------------
 //  
 // [SPI settings]
@@ -36,20 +36,28 @@
 #ifdef WPI
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
+#include <wiringShift.h>
+
 #ifdef GPIO
-#define D_C  2  // BCM GPIO2=Pin#3
-#define RES  3  // BCM GPIO3=Pin#5
+#define D_C  17 // BCM IO17=Pin#11
+#define RES  18 // BCM IO18=Pin#12
+#define MOSI 10 // BCM IO10=Pin#19
+#define SCLK 11 // BCM IO11=Pin#23
+#define CS   24 // BCM IO24=Pin#24
 #else
-#define D_C  8  // wPi GPIO8=Pin#3
-#define RES  9  // wPi GPIO9=Pin#5
+#define D_C   0 // wPi IO00=Pin#11
+#define RES   1 // wPi IO01=Pin#12
+#define MOSI 12 // wPi IO12=Pin#19
+#define SCLK 14 // wPi IO14=Pin#23
+#define CS   10 // wPi IO10=Pin#24
 #endif
-#endif
+#endif // end WPI
 
 
 #ifdef BCM
 #include <bcm2835.h>
-#define D_C  2  // BCM GPIO2=Pin#3
-#define RES  3  // BCM GPIO3=Pin#5
+#define D_C 17  // BCM IO17=Pin#11
+#define RES 18  // BCM IO18=Pin#12
 #endif
 
 #include "ili9340.h"
@@ -72,14 +80,26 @@ int _offsety;
 // D/C=LOW then,write command(8bit)
 void lcdWriteCommandByte(uint8_t c){
   digitalWrite(D_C, LOW);
+#ifdef SOFT_SPI
+  digitalWrite(CS, LOW);
+  shiftOut(MOSI, SCLK, MSBFIRST, c);
+  digitalWrite(CS, HIGH);
+#else
   wiringPiSPIDataRW(0, &c, 1);
+#endif
 }
 
 // Write Data 8Bit
 // D/C=HIGH then,write data(8bit)
 void lcdWriteDataByte(uint8_t c){
   digitalWrite(D_C, HIGH);
+#ifdef SOFT_SPI
+  digitalWrite(CS, LOW);
+  shiftOut(MOSI, SCLK, MSBFIRST, c);
+  digitalWrite(CS, HIGH);
+#else
   wiringPiSPIDataRW(0, &c, 1);
+#endif
 }
 
 // Write Data 16Bit
@@ -99,7 +119,15 @@ void lcdWriteAddr(uint8_t addr1, uint8_t addr2){
   byte[2] = (addr2 >> 8) & 0xFF;
   byte[3] = addr2 & 0xFF;
   digitalWrite(D_C, HIGH);
+#ifdef SOFT_SPI
+  digitalWrite(CS, LOW);
+  for(int index=0;index<4;index++) {
+    shiftOut(MOSI, SCLK, MSBFIRST, byte[index]);
+  }
+  digitalWrite(CS, HIGH);
+#else
   wiringPiSPIDataRW(0, byte, 4);
+#endif
 }
 
 // Write Data 16Bit
@@ -112,9 +140,17 @@ void lcdWriteColor(uint16_t color, uint16_t size) {
     byte[index++] = color & 0xFF;
   }
   digitalWrite(D_C, HIGH);
+#ifdef SOFT_SPI
+  digitalWrite(CS, LOW);
+  for(int index=0;index<size*2;index++) {
+    shiftOut(MOSI, SCLK, MSBFIRST, byte[index]);
+  }
+  digitalWrite(CS, HIGH);
+#else
   wiringPiSPIDataRW(0, byte, size*2);
-}
 #endif
+}
+#endif // end WPI
 
 #ifdef BCM
 // Write Command
@@ -150,7 +186,7 @@ void lcdWriteColor(uint16_t color, uint16_t size) {
   int i;
   for(i=0;i<size;i++) bcm2835_spi_write(color);
 }
-#endif
+#endif // end BCM
 
 
 #ifdef WPI
@@ -174,7 +210,15 @@ void lcdInit(int width, int height, int offsetx, int offsety){
     printf("wiringPiSetup Error\n");
     return;
   }
-#endif
+#endif // end GPIO
+
+
+#ifdef SOFT_SPI
+  pinMode(CS, OUTPUT);
+  pinMode(MOSI, OUTPUT);
+  pinMode(SCLK, OUTPUT);
+  printf("Using SoftWare SPI\n");
+#else
 
 #if defined SPI_SPEED32
   int spi_speed = 32000000;
@@ -183,7 +227,7 @@ void lcdInit(int width, int height, int offsetx, int offsety){
 #else
   int spi_speed = 8000000;
 #endif
-  printf("Using SPI SPEED %dMHz\n", spi_speed/1000000);
+  printf("Using HardWare SPI. SPI SPEED %dMHz\n", spi_speed/1000000);
 
 #ifdef SPI1
   printf("Using SPI Channel 1\n");
@@ -194,6 +238,7 @@ void lcdInit(int width, int height, int offsetx, int offsety){
   wiringPiSPISetup(0, 16000000);
   wiringPiSPISetup(0, spi_speed);
 #endif
+#endif // end SOFT_SPI
   //wiringPiSPISetup(0, 32000000);
 
   _FONT_DIRECTION_ = DIRECTION0;
@@ -233,13 +278,13 @@ void lcdInit(int width, int height, int offsetx, int offsety){
   bcm2835_spi_setDataMode(BCM2835_SPI_MODE0);
 #if defined SPI_SPEED32
   bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_8); // 31.25MHz on Rpi2, 50MHz on RPI3
-  printf("Using SPI SPEED 31.25MHz on Rpi2, 50MHz on RPI3\n");
+  printf("Using BCM. SPI SPEED 31.25MHz on Rpi2, 50MHz on RPI3\n");
 #elif defined SPI_SPEED16
   bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_16); // 15.625MHz on Rpi2, 25MHz on RPI3
-  printf("Using SPI SPEED 15.625MHz on Rpi2, 25MHz on RPI3\n");
+  printf("Using BCM. SPI SPEED 15.625MHz on Rpi2, 25MHz on RPI3\n");
 #else
   bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_32); // 7.8125MHz on Rpi2, 12.5MHz on RPI3
-  printf("Using SPI SPEED 7.8125MHz on Rpi2, 12.5MHz on RPI3\n");
+  printf("Using BCM. SPI SPEED 7.8125MHz on Rpi2, 12.5MHz on RPI3\n");
 #endif
 
 #ifdef SPI1
@@ -272,7 +317,7 @@ void lcdReset(void){
   bcm2835_gpio_write(RES, HIGH);
   bcm2835_delay(100); 
 }
-#endif
+#endif // end BCM
 
 // TFT initialize
 void lcdSetup(void){

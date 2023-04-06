@@ -13,6 +13,11 @@ I tested these TFT.
 2.4 inch 240x320 ILI9341   
 2.4 inch 240x320 ILI9341   
 
+This project can be built with either:
+- Build using bcm2835 library   
+- Build using Hardware SPI of the WiringPi library   
+- Build using Software SPI of the WiringPi library   
+
 ---
 
 # Wirering   
@@ -22,8 +27,8 @@ I tested these TFT.
 |VCC|--|3.3V||
 |GND|--|GND||
 |CS|--|Pin#24(SPI CS0)|*2|
-|RES|--|Pin#5|*1|
-|D/C|--|Pin#3|*1|
+|RES|--|Pin#12|*1|
+|D/C|--|Pin#11|*1|
 |MOSI|--|Pin#19(SPI MOSI)||
 |SCK|--|Pin#23(SPI SCLK)||
 |LED|--|3.3V||
@@ -56,8 +61,8 @@ You can change GPIO to any pin by changing here.
 ```
 #ifdef BCM
 #include <bcm2835.h>
-#define D_C  2  // BCM IO2=Pin#3
-#define RES  3  // BCM IO3=Pin#5
+#define D_C 17  // BCM IO17=Pin#11
+#define RES 18  // BCM IO18=Pin#12
 #endif
 ```
 
@@ -91,7 +96,7 @@ ___50MHz is an overclock.___
 
 ---
 
-# Build using WiringPi library   
+# Build using Hardware SPI of the WiringPi library   
 WiringPi library initializes GPIO in one of the following ways:
 - int wiringPiSetup (void);   
 - int wiringPiSetupGpio (void);   
@@ -102,8 +107,8 @@ This project by default uses the ```wiringPiSetup()``` function to initialize GP
 Then use the wiringPiSPISetup() function to initialize the SPI.   
 If you use it on a board other than the RPI board, you may need to change the WiringPi number.
 ```
-#define D_C  8  // wPi IO8=Pin#3
-#define RES  9  // wPi IO9=Pin#5
+#define D_C  17 // BCM IO17=Pin#11
+#define RES  18 // BCM IO18=Pin#12
 ```
 
 As far as I know, there are these WiringPi libraries.   
@@ -111,7 +116,6 @@ As far as I know, there are these WiringPi libraries.
 - WiringPi for BananaPi   
 - WiringPi for NanoPi   
 - WiringPi for Pine-64   
-
 
 If you want to initialize GPIO with ```wiringPiSetupGpio()```, Use the -DGPIO compilation flag.   
 In this case, use the following GPIOs.   
@@ -149,6 +153,42 @@ Can be changed at compile time.
 - -DSPI_SPEED16 : 16MHz on all Rpi.   
 - -DSPI_SPEED32 : 32MHz on all Rpi.   
 
+
+---
+
+# Build using Software SPI of the WiringPi library   
+WiringPi library initializes GPIO in one of the following ways:
+- int wiringPiSetup (void);   
+- int wiringPiSetupGpio (void);   
+- int wiringPiSetupPhys (void);   
+- int wiringPiSetupSys (void);   
+
+This project by default uses the ```wiringPiSetup()``` function to initialize GPIOs.   
+Then use the wiringPiSPISetup() function to initialize the SPI.   
+If you use it on a board other than the RPI board, you may need to change the WiringPi number.
+```
+#define D_C   0 // wPi IO00=Pin#11
+#define RES   1 // wPi IO01=Pin#12
+#define MOSI 12 // wPi IO12=Pin#19
+#define SCLK 14 // wPi IO14=Pin#23
+#define CS   10 // wPi IO10=Pin#24
+```
+
+If you want to initialize GPIO with ```wiringPiSetupGpio()```, Use the -DGPIO compilation flag.   
+In this case, use the following GPIOs.   
+```
+#define D_C  17 // BCM IO17=Pin#11
+#define RES  18 // BCM IO18=Pin#12
+#define MOSI 10 // BCM IO10=Pin#19
+#define SCLK 11 // BCM IO11=Pin#23
+#define CS   24 // BCM IO24=Pin#24
+```
+```
+git clone https://github.com/nopnop2002/Raspberry-ili9340spi
+cd Raspberry-ili9340spi
+cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -pthread -DWPI -DSOFT_SPI
+sudo ./demo
+```
 
 
 ---
