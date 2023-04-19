@@ -241,9 +241,10 @@ PNG File
 
 ---
 
-This library can use ILI9341 TFT.   
-
-From left 2.8" ILI9341,2.4" ILI9341, 2.2" ILI9340.   
+From left to right:   
+2.8" 240x320 ILI9341
+2.4" 240x320 ILI9341   
+2.2" 240x320 ILI9340   
 
 ![ILI9341-A](https://user-images.githubusercontent.com/6020549/232970787-2374f04f-def0-4498-b585-c287b9e31663.JPG)
 ![ILI9341-B](https://user-images.githubusercontent.com/6020549/232970793-dc0c753a-6da9-4ac9-bab8-c5ebd0752221.JPG)
@@ -251,13 +252,11 @@ From left 2.8" ILI9341,2.4" ILI9341, 2.2" ILI9340.
 
 ---
 
-This library can use ILI9163C/ST7735 TFT.   
-
-From left to right.   
-2.2 inch 240x320 ILI9340   
-1.44 inch 128x128 ST7735   
-1.44 inch 128x128 ILI9163C   
-1.8 inch 128x160 ST7735   
+From left to right:   
+2.2" 240x320 ILI9340   
+1.44" 128x128 ST7735   
+1.44" 128x128 ILI9163C   
+1.8" 128x160 ST7735   
 
 ![ili9163-1](https://user-images.githubusercontent.com/6020549/28749424-d9c5af2e-7501-11e7-9e3c-a88376ac015f.JPG)
 
