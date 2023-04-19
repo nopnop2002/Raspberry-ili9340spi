@@ -184,6 +184,21 @@ Can be changed at compile time.
 - -DSPI_SPEED16 : 16MHz on all Rpi.   
 - -DSPI_SPEED32 : 32MHz on all Rpi.   
 
+### SPI Bus speed comparison
+||8MHz|16MHz|32MHz|
+|:-:|:-:|:-:|:-:|
+|ColorBarTest|208|116|93|
+|ArrowTest|389|296|239|
+|LineTest|1800|1637|1560|
+|CircleTest|1630|1481|1393|
+|RoundRectTest|1633|1490|1412|
+|DirectionTest|461|354|315|
+|HorizontalTest|878|723|663|
+|VerticalTest|909|769|702|
+|FillRectTest|454|246|148|
+|ColorTest|558|234|159|
+|JPEGTest|6292|5862|5640|
+|PNGTest|6439|5989|5803|
 
 ---
 
