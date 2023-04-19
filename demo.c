@@ -422,7 +422,7 @@ time_t ColorTest(int width, int height) {
 	return diff;
 }
 
-time_t JPEGTest(char * file, int width, int height) {
+time_t JPEGTest(char * file, int width, int height, bool reverse) {
 	struct timeval startTime, endTime;	
 	gettimeofday(&startTime, NULL);	
 
@@ -464,14 +464,27 @@ time_t JPEGTest(char * file, int width, int height) {
 		}
 		//printf("jpegHeight=%d offsetY=%d\n", jpegHeight, offsetY);
 
-		int ypos = (height-1) - offsetY;
+		int ypos;
+		if (reverse) {
+			ypos = offsetY;
+		} else {
+			ypos = (height-1) - offsetY;
+		}
 		for(int y = 0; y < jpegHeight; y++){
 			for(int x = 0;x < jpegWidth; x++){
 				uint16_t color = pixels[y][x];
 				//lcdDrawPixel(x+offsetX, y+offsetY, color);
-				lcdDrawPixel(x+offsetX, ypos, color);
+				if (reverse) {
+					lcdDrawPixel(offsetX+jpegWidth-x, ypos, color);
+				} else {
+					lcdDrawPixel(offsetX+x, ypos, color);
+				}
 			}
-			ypos--;
+			if (reverse) {
+				ypos++;
+			} else {
+				ypos--;
+			}
 		}
 
 		release_jpeg(&pixels, _width, _height);
@@ -486,7 +499,7 @@ time_t JPEGTest(char * file, int width, int height) {
 	return diff;
 }
 
-time_t PNGTest(char * file, int width, int height) {
+time_t PNGTest(char * file, int width, int height, bool reverse) {
 	struct timeval startTime, endTime;
 	gettimeofday(&startTime, NULL);	
 
@@ -560,14 +573,27 @@ time_t PNGTest(char * file, int width, int height) {
 	}
 	//printf("pngHeight=%d offsetY=%d\n", pngHeight, offsetY);
 
-	int ypos = (height-1) - offsetY;
+	int ypos;
+	if (reverse) {
+		ypos = offsetY;
+	} else {
+		ypos = (height-1) - offsetY;
+	}
     for(int y = 0; y < pngHeight; y++){
         for(int x = 0;x < pngWidth; x++){
             pixel_png pixel = pngle->pixels[y][x];
             uint16_t color = rgb565(pixel.red, pixel.green, pixel.blue);
-            lcdDrawPixel(x+offsetX, ypos, color);
+			if (reverse) {
+            	lcdDrawPixel(offsetX+pngWidth-x, ypos, color);
+			} else {
+            	lcdDrawPixel(offsetX+x, ypos, color);
+			}
         }
-        ypos--;
+		if (reverse) {
+			ypos++;
+		} else {
+    	    ypos--;
+		}
     }
 
 	pngle_destroy(pngle, _width, _height);
@@ -630,10 +656,14 @@ int main(int argc, char **argv)
 	lcdSetup();
 
 #if _TEST_
-	JPEGTest("./images/RaspberryPi_240x240.jpg", screenWidth, screenHeight);
+	JPEGTest("./images/RaspberryPi_240x240.jpg", screenWidth, screenHeight, false);
+	WAIT;
+	JPEGTest("./images/RaspberryPi_240x240.jpg", screenWidth, screenHeight, true);
 	WAIT;
 
-	//PNGTest("./images/Ubuntu_log.png", screenWidth, screenHeight);
+	PNGTest("./images/Ubuntu_log.png", screenWidth, screenHeight, false);
+	WAIT;
+	PNGTest("./images/Ubuntu_log.png", screenWidth, screenHeight, true);
 	return 0;
 #endif
 
@@ -684,10 +714,14 @@ int main(int argc, char **argv)
 	ColorTest(screenWidth, screenHeight);
 	WAIT;
 
-	JPEGTest("./images/RaspberryPi_240x240.jpg", screenWidth, screenHeight);
+	JPEGTest("./images/RaspberryPi_240x240.jpg", screenWidth, screenHeight, false);
+	WAIT;
+	JPEGTest("./images/RaspberryPi_240x240.jpg", screenWidth, screenHeight, true);
 	WAIT;
 
-	PNGTest("./images/Ubuntu_log.png", screenWidth, screenHeight);
+	PNGTest("./images/Ubuntu_log.png", screenWidth, screenHeight, false);
+	WAIT;
+	PNGTest("./images/Ubuntu_log.png", screenWidth, screenHeight, true);
 	WAIT;
 
 	// Multi Font Test
