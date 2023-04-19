@@ -46,6 +46,8 @@ This project can be built with either:
 # Build using bcm2835 library   
 RPi Only, Very fast   
 
+### Install bcm2835 library
+
 ```
 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.56.tar.gz
 tar zxvf bcm2835-1.56.tar.gz
