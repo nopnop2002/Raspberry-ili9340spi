@@ -112,14 +112,14 @@ int16_t decode_jpeg(pixel_jpeg ***pixels, char * file, uint16_t width, uint16_t 
 	//Alocate pixel memory. Each line is an array of IMAGE_W 16-bit pixels; the `*pixels` array itself contains pointers to these lines.
 	*pixels = calloc(height, sizeof(pixel_jpeg *));
 	if (*pixels == NULL) {
-		printf("Error allocating memory for lines\n");
+		printf("%s:Error allocating memory for lines\n", __func__);
 		ret = JPG_ERR_NO_MEM;
 		goto err;
 	}
 	for (int i = 0; i < height; i++) {
 		(*pixels)[i] = malloc(width * sizeof(pixel_jpeg));
 		if ((*pixels)[i] == NULL) {
-			printf("Error allocating memory for line %d\n", i);
+			printf("%s:Error allocating memory for line %d\n", __func__, i);
 			ret = JPG_ERR_NO_MEM;
 			goto err;
 		}
@@ -128,7 +128,7 @@ int16_t decode_jpeg(pixel_jpeg ***pixels, char * file, uint16_t width, uint16_t 
 	//Allocate the work space for the jpeg decoder.
 	work = calloc(WORKSZ, 1);
 	if (work == NULL) {
-		printf("Cannot allocate workspace\n");
+		printf("%s:Cannot allocate workspace\n", __func__);
 		ret = JPG_ERR_NO_MEM;
 		goto err;
 	}
@@ -140,7 +140,7 @@ int16_t decode_jpeg(pixel_jpeg ***pixels, char * file, uint16_t width, uint16_t 
 	jd.screenHeight = height;
 	jd.fp = fopen(file, "rb");
 	if (jd.fp == NULL) {
-		printf("Image file not found [%s]\n", file);
+		printf("%s:Image file not found [%s]\n", __func__, file);
 		ret = JPG_ERR_NOT_FOUND;
 		goto err;
 	}
@@ -149,7 +149,7 @@ int16_t decode_jpeg(pixel_jpeg ***pixels, char * file, uint16_t width, uint16_t 
 	//Prepare and decode the jpeg.
 	r = jd_prepare(&decoder, infunc, work, WORKSZ, (void *) &jd);
 	if (r != JDR_OK) {
-		printf("Image decoder: jd_prepare failed (%d)\n", r);
+		printf("%s:jd_prepare failed (%d)\n", __func__, r);
 		ret = JPG_ERR_NOT_SUPPORTED;
 		goto err;
 	}
@@ -172,7 +172,7 @@ int16_t decode_jpeg(pixel_jpeg ***pixels, char * file, uint16_t width, uint16_t 
 
 	r = jd_decomp(&decoder, outfunc, scale);
 	if (r != JDR_OK) {
-		printf("Image decoder: jd_decode failed (%d)\n", r);
+		printf("%s:jd_decode failed (%d)\n", __func__, r);
 		ret = JPG_ERR_NOT_SUPPORTED;
 		goto err;
 	}
@@ -181,6 +181,7 @@ int16_t decode_jpeg(pixel_jpeg ***pixels, char * file, uint16_t width, uint16_t 
 	free(work);
 	fclose(jd.fp);
 	return ret;
+
 	err:
 	//Something went wrong! Exit cleanly, de-allocating everything we allocated.
 	if (*pixels != NULL) {
@@ -190,6 +191,7 @@ int16_t decode_jpeg(pixel_jpeg ***pixels, char * file, uint16_t width, uint16_t 
 		free(*pixels);
 	}
 	free(work);
+	if (jd.fp != NULL) fclose(jd.fp);
 	return ret;
 }
 

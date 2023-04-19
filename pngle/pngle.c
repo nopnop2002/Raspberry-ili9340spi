@@ -110,14 +110,14 @@ pngle_t *pngle_new(uint16_t width, uint16_t height)
     //Alocate pixel memory. Each line is an array of IMAGE_W 16-bit pixels; the `*pixels` array itself contains pointers to these lines.
     pngle->pixels = calloc(height, sizeof(pixel_png *));
     if (pngle->pixels == NULL) {
-        printf("Error allocating memory for lines");
+        printf("%s:Error allocating memory for lines\n", __func__);
         //ret = ESP_ERR_NO_MEM;
         goto err;
     }
     for (int i = 0; i < height; i++) {
         (pngle->pixels)[i] = malloc(width * sizeof(pixel_png));
         if ((pngle->pixels)[i] == NULL) {
-            printf("Error allocating memory for line %d", i);
+            printf("%s:Error allocating memory for line %d\n", __func__, i);
             //ret = ESP_ERR_NO_MEM;
             goto err;
         }
