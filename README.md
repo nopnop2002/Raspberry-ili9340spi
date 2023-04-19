@@ -72,6 +72,7 @@ You can change GPIO to any pin by changing here.
 ```
 
 ### Using SPI0
+Use Pin#24 as ChipSelect.   
 ```
 cd $HOME   
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
@@ -82,6 +83,7 @@ sudo ./demo
 ```
 
 ### Using SPI1
+Use Pin#26 as ChipSelect.   
 ```
 cd $HOME   
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
