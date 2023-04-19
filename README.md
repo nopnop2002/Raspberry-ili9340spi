@@ -31,7 +31,7 @@ This project can be built with either:
 |D/C|--|Pin#11|*1|
 |MOSI|--|Pin#19(SPI MOSI)|*3|
 |SCK|--|Pin#23(SPI SCLK)|*3|
-|LED|--|3.3V||
+|LED|--|3.3V|*4|
 |MISO|--|N/C||
 
 (*1) You can change it to any pin by changing source.   
