@@ -304,7 +304,7 @@ sudo ./xpt
 
 If you touch screen, point will show.   
 
-![touch-11](https://cloud.githubusercontent.com/assets/6020549/25060732/9b4ccd2e-21df-11e7-9f08-0b7377a07f10.jpg)
+![Touch-11](https://user-images.githubusercontent.com/6020549/232971208-6904db4f-15a8-492b-8e66-89c34c85d8e0.jpg)
 
 ---
 ```
@@ -314,5 +314,4 @@ sudo ./touch
 
 If you touch area, number will show.   
 
-![touch-12](https://cloud.githubusercontent.com/assets/6020549/25060736/af89c170-21df-11e7-9789-1705e81e4692.JPG)
-
+![Touch-12](https://user-images.githubusercontent.com/6020549/232971233-a03cd5e8-f7e9-4f30-957e-b69fa2474b4d.JPG)
