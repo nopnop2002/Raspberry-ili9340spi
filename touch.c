@@ -8,12 +8,11 @@
 #include "ili9340.h"
 #include "xpt2046.h"
 
-//#define T_CS BCM2835_SPI_CS0
 #define T_CS BCM2835_SPI_CS1
+#define T_IRQ RPI_V2_GPIO_P1_22
 #define _DEBUG_ 0
 
 TouchInfo tinfo;
-
 
 int ReadTFTConfig(char *path, int *width, int *height, int *offsetx, int *offsety) {
 	FILE *fp;
@@ -29,13 +28,13 @@ int ReadTFTConfig(char *path, int *width, int *height, int *offsetx, int *offset
 		if (buff[0] == 0x0a) continue;
 		if (strncmp(buff, "width=", 6) == 0) {
 			sscanf(buff, "width=%d height=%d",width,height);
-if(_DEBUG_)printf("width=%d height=%d\n",*width,*height);
+			if(_DEBUG_)printf("width=%d height=%d\n",*width,*height);
 		} else if (strncmp(buff, "offsetx=", 8) == 0) {
 			sscanf(buff, "offsetx=%d",offsetx);
-if(_DEBUG_)printf("offsetx=%d\n",*offsetx);
+			if(_DEBUG_)printf("offsetx=%d\n",*offsetx);
 		} else if (strncmp(buff, "offsety=", 8) == 0) {
 			sscanf(buff, "offsety=%d",offsety);
-if(_DEBUG_)printf("offsety=%d\n",*offsety);
+			if(_DEBUG_)printf("offsety=%d\n",*offsety);
 		}
 	}
 	fclose(fp);
@@ -56,7 +55,7 @@ int main(int argc, char **argv)
 	char dir[128];
 	char cpath[128];
 
-if(_DEBUG_)  printf("argv[0]=%s\n",argv[0]);
+	if(_DEBUG_)printf("argv[0]=%s\n",argv[0]);
 	strcpy(dir, argv[0]);
 	for(i=strlen(dir);i>0;i--) {
 		if (dir[i-1] == '/') {
@@ -64,15 +63,15 @@ if(_DEBUG_)  printf("argv[0]=%s\n",argv[0]);
 			break;
 		} // end if
 	} // end for
-if(_DEBUG_)printf("dir=%s\n",dir);
+	if(_DEBUG_)printf("dir=%s\n",dir);
 	strcpy(cpath,dir);
 	strcat(cpath,"tft.conf");
-if(_DEBUG_)printf("cpath=%s\n",cpath);
+	if(_DEBUG_)printf("cpath=%s\n",cpath);
 	if (ReadTFTConfig(cpath, &screenWidth, &screenHeight, &offsetx, &offsety) == 0) {
 		printf("%s Not found\n",cpath);
 		return 0;
 	}
-if(_DEBUG_)printf("ReadTFTConfig:screenWidth=%d height=%d\n",screenWidth, screenHeight);
+	if(_DEBUG_)printf("ReadTFTConfig:screenWidth=%d height=%d\n",screenWidth, screenHeight);
 	printf("Your TFT resolution is %d x %d.\n",screenWidth, screenHeight);
 	printf("Your TFT offsetx		is %d.\n",offsetx);
 	printf("Your TFT offsety		is %d.\n",offsety);
@@ -105,7 +104,7 @@ if(_DEBUG_)printf("ReadTFTConfig:screenWidth=%d height=%d\n",screenWidth, screen
 	lcdReset();
 	lcdSetup();
 
-	bcm2835_gpio_fsel(RPI_V2_GPIO_P1_22,BCM2835_GPIO_FSEL_INPT);
+	bcm2835_gpio_fsel(T_IRQ,BCM2835_GPIO_FSEL_INPT);
 
 	// Get font width & height
 	uint8_t buffer[FontxGlyphBufSize];
@@ -140,7 +139,7 @@ if(_DEBUG_)printf("ReadTFTConfig:screenWidth=%d height=%d\n",screenWidth, screen
 	int counter = 0;
 	while(1) {
 		usleep(10000);
-		pen_irq = bcm2835_gpio_lev(RPI_V2_GPIO_P1_22);
+		pen_irq = bcm2835_gpio_lev(T_IRQ);
 		if (pen_irq == HIGH) continue;
 		int _xp;
 		int _yp;
@@ -165,7 +164,7 @@ if(_DEBUG_)printf("ReadTFTConfig:screenWidth=%d height=%d\n",screenWidth, screen
 	lcdFillScreen(BLACK);
 	while(1) {
 		usleep(10000);
-		pen_irq = bcm2835_gpio_lev(RPI_V2_GPIO_P1_22);
+		pen_irq = bcm2835_gpio_lev(T_IRQ);
 		if (pen_irq == HIGH) break;
 	} // end while
 
@@ -191,7 +190,7 @@ if(_DEBUG_)printf("ReadTFTConfig:screenWidth=%d height=%d\n",screenWidth, screen
 	counter = 0;
 	while(1) {
 		usleep(10000);
-		pen_irq = bcm2835_gpio_lev(RPI_V2_GPIO_P1_22);
+		pen_irq = bcm2835_gpio_lev(T_IRQ);
 		if (pen_irq == HIGH) continue;
 		int _xp;
 		int _yp;
@@ -216,7 +215,7 @@ if(_DEBUG_)printf("ReadTFTConfig:screenWidth=%d height=%d\n",screenWidth, screen
 	lcdFillScreen(BLACK);
 	while(1) {
 		usleep(10000);
-		pen_irq = bcm2835_gpio_lev(RPI_V2_GPIO_P1_22);
+		pen_irq = bcm2835_gpio_lev(T_IRQ);
 		if (pen_irq == HIGH) break;
 	} // end while
 	tinfo._calibration = false;
@@ -258,11 +257,11 @@ if(_DEBUG_)printf("ReadTFTConfig:screenWidth=%d height=%d\n",screenWidth, screen
 	color = RED;
 	while(1) {
 		usleep(10000);			/* do it anyway ; settle time when pen goes up */
-		pen_irq = bcm2835_gpio_lev(RPI_V2_GPIO_P1_22);
+		pen_irq = bcm2835_gpio_lev(T_IRQ);
 		if (pen_irq == LOW) { /* P1.22 == PenIRQ is LOW : touch! pen is down */
 			int id = xptGetPoint(T_CS, &tinfo);
 			if (id != -1) {
-if(_DEBUG_)printf("id=%d\n",id);
+			if(_DEBUG_)printf("id=%d\n",id);
 				lcdInit(screenWidth, screenHeight, offsetx, offsety);
 				lcdSetFontDirection(DIRECTION90);
 				utf[0] = id + 48;

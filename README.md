@@ -284,20 +284,20 @@ Wirering
 
 |TFT||Rpi||
 |:-:|:-:|:-:|:-:|
-|T_IRQ|--|Pin#22|(*1)|
-|T_OUT|--|Pin#21(SPI MISO)|(*2)|
-|T_DIN|--|Pin#19(SPI MOSI)|(*2)|
-|T_CS|--|Pin#26(SPI CE1)||
-|T_CLK|--|Pin#23(SPI SCLK)|(*2)|
-|MISO|--|N/C||
-|LED|--|3.3V||
-|SCK|--|Pin#23(SPI SCLK)|(*2)|
-|MOSI|--|Pin#19(SPI MOSI)|(*2)|
-|D/C|--|Pin#3|(*1)|
-|RES|--|Pin#5|(*1)|
-|CS|--|Pin#24(SPI CS0)||
-|GND|--|GND||
 |VCC|--|3.3V||
+|GND|--|GND||
+|CS|--|Pin#24(SPI CS0)||
+|RES|--|Pin#12|(*1)|
+|D/C|--|Pin#11|(*1)|
+|MOSI|--|Pin#19(SPI MOSI)|(*2)|
+|SCK|--|Pin#23(SPI SCLK)|(*2)|
+|LED|--|3.3V||
+|MISO|--|N/C||
+|T_CLK|--|Pin#23(SPI SCLK)|(*2)|
+|T_CS|--|Pin#26(SPI CE1)||
+|T_DIN|--|Pin#19(SPI MOSI)|(*2)|
+|T_OUT|--|Pin#21(SPI MISO)|(*2)|
+|T_IRQ|--|Pin#22|(*1)|
 
 (*1) You can change any pin.   
 
