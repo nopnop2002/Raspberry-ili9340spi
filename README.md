@@ -105,7 +105,21 @@ Can be changed at compile time.
 
 ___50MHz is an overclock.___   
 
-
+### SPI Bus speed comparison
+||7.8125MHz|15.625MHz|31.25MHz|
+|:-:|:-:|:-:|:-:|
+|ColorBarTest|245|160|107|
+|ArrowTest|286|193|155|
+|LineTest|595|397|294|
+|CircleTest|558|373|282|
+|RoundRectTest|560|371|273|
+|DirectionTest|304|199|153|
+|HorizontalTest|430|283|209|
+|VerticalTest|438|290|214|
+|FillRectTest|448|285|221|
+|ColorTest|500|327|234|
+|JPEGTest|1607|1076|816|
+|PNGTest|1742|1231|974|
 
 ---
 
