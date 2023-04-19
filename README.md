@@ -116,8 +116,8 @@ This project by default uses the ```wiringPiSetup()``` function to initialize GP
 Then use the wiringPiSPISetup() function to initialize the SPI.   
 If you use it on a board other than the RPI board, you may need to change the WiringPi number.
 ```
-#define D_C  17 // BCM IO17=Pin#11
-#define RES  18 // BCM IO18=Pin#12
+#define D_C   0 // wPi IO00=Pin#11
+#define RES   1 // wPi IO01=Pin#12
 ```
 
 As far as I know, there are these WiringPi libraries.   
@@ -129,8 +129,8 @@ As far as I know, there are these WiringPi libraries.
 If you want to initialize GPIO with ```wiringPiSetupGpio()```, Use the -DGPIO compilation flag.   
 In this case, use the following GPIOs.   
 ```
-#define D_C  2  // BCM IO2=Pin#3
-#define RES  3  // BCM IO3=Pin#5
+#define D_C  17 // BCM IO17=Pin#11
+#define RES  18 // BCM IO18=Pin#12
 ```
 
 
