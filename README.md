@@ -242,7 +242,7 @@ PNG File
 ---
 
 From left to right:   
-2.8" 240x320 ILI9341
+2.8" 240x320 ILI9341   
 2.4" 240x320 ILI9341   
 2.2" 240x320 ILI9340   
 
