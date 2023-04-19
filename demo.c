@@ -387,7 +387,7 @@ time_t FillRectTest(int width, int height) {
 		red=rand()%255;
 		green=rand()%255;
 		blue=rand()%255;
-		color=rgb565_conv(red, green, blue);
+		color=rgb565(red, green, blue);
 		uint16_t xpos=rand()%width;
 		uint16_t ypos=rand()%height;
 		uint16_t size=rand()%(width/5);
@@ -564,7 +564,7 @@ time_t PNGTest(char * file, int width, int height) {
     for(int y = 0; y < pngHeight; y++){
         for(int x = 0;x < pngWidth; x++){
             pixel_png pixel = pngle->pixels[y][x];
-            uint16_t color = rgb565_conv(pixel.red, pixel.green, pixel.blue);
+            uint16_t color = rgb565(pixel.red, pixel.green, pixel.blue);
             lcdDrawPixel(x+offsetX, ypos, color);
         }
         ypos--;

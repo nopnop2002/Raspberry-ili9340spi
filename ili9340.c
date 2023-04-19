@@ -684,15 +684,6 @@ void lcdDrawFillArrow(uint16_t x0,uint16_t y0,uint16_t x1,uint16_t y1,uint16_t w
    }
 }
 
-
-// RGB565 conversion
-// RGB565 is R(5)+G(6)+B(5)=16bit color format.
-// Bit image "RRRRRGGGGGGBBBBB"
-uint16_t rgb565_conv(uint16_t r,uint16_t g,uint16_t b) {
-	return (((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3));
-}
-
-
 // Draw SJIS character
 // x:X coordinate
 // y:Y coordinate

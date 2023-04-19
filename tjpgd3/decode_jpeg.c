@@ -53,8 +53,6 @@ static size_t infunc(JDEC *decoder, uint8_t *buf, size_t len) {
 	return rlen;
 }
 
-#define rgb565(r, g, b) (((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3))
-
 //Output function. Re-encodes the RGB888 data from the decoder as big-endian RGB565 and
 //stores it in the outData array of the JpegDev structure.
 static int outfunc(JDEC *decoder, void *bitmap, JRECT *rect) {

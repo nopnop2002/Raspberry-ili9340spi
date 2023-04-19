@@ -15,6 +15,8 @@
 #define DIRECTION180    2
 #define DIRECTION270    3
 
+#define rgb565(r, g, b) (((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3))
+
 void lcdWriteCommandByte(uint8_t c);
 void lcdWriteDataByte(uint8_t c);
 void lcdWriteDataWord(uint16_t w);
@@ -36,7 +38,6 @@ void lcdDrawFillCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t color);
 void lcdDrawRoundRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t r, uint16_t color);
 void lcdDrawArrow(uint16_t x0,uint16_t y0,uint16_t x1,uint16_t y1,uint16_t w,uint16_t color);
 void lcdDrawFillArrow(uint16_t x0,uint16_t y0,uint16_t x1,uint16_t y1,uint16_t w,uint16_t color);
-uint16_t rgb565_conv(uint16_t r,uint16_t g,uint16_t b);
 int lcdDrawSJISChar(FontxFile *fx, uint16_t x,uint16_t y,uint16_t sjis,uint16_t color);
 int lcdDrawUTF8Char(FontxFile *fx, uint16_t x,uint16_t y,uint8_t *utf8,uint16_t color);
 int lcdDrawUTF8String(FontxFile *fx, uint16_t x,uint16_t y,unsigned char *utfs,uint16_t color);
