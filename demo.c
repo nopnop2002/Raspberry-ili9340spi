@@ -579,22 +579,22 @@ time_t PNGTest(char * file, int width, int height, bool reverse) {
 	} else {
 		ypos = (height-1) - offsetY;
 	}
-    for(int y = 0; y < pngHeight; y++){
-        for(int x = 0;x < pngWidth; x++){
-            pixel_png pixel = pngle->pixels[y][x];
-            uint16_t color = rgb565(pixel.red, pixel.green, pixel.blue);
+	for(int y = 0; y < pngHeight; y++){
+		for(int x = 0;x < pngWidth; x++){
+			pixel_png pixel = pngle->pixels[y][x];
+			uint16_t color = rgb565(pixel.red, pixel.green, pixel.blue);
 			if (reverse) {
-            	lcdDrawPixel(offsetX+pngWidth-x, ypos, color);
+				lcdDrawPixel(offsetX+pngWidth-x, ypos, color);
 			} else {
-            	lcdDrawPixel(offsetX+x, ypos, color);
+				lcdDrawPixel(offsetX+x, ypos, color);
 			}
-        }
+		}
 		if (reverse) {
 			ypos++;
 		} else {
-    	    ypos--;
+			ypos--;
 		}
-    }
+	}
 
 	pngle_destroy(pngle, _width, _height);
 
@@ -618,8 +618,8 @@ int main(int argc, char **argv)
 	strcpy(dir, argv[0]);
 	for(i=strlen(dir);i>0;i--) {
 		if (dir[i-1] == '/') {
-		  dir[i] = 0;
-		  break;
+			dir[i] = 0;
+			break;
 		} // end if
 	} // end for
 	if(_DEBUG_)printf("dir=%s\n",dir);
