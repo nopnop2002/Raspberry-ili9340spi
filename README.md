@@ -74,7 +74,8 @@ You can change GPIO to any pin by changing here.
 cd $HOME   
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
 cd Raspberry-ili9340spi
-cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM
+make lib
+cc -o demo demo.c fontx.c ili9340.c jpeg.a png.a -lbcm2835 -lm -DBCM
 sudo ./demo
 ```
 
@@ -83,7 +84,8 @@ sudo ./demo
 cd $HOME   
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
 cd Raspberry-ili9340spi
-cc -o demo demo.c fontx.c ili9340.c -lbcm2835 -lm -DBCM -DSPI1
+make lib
+cc -o demo demo.c fontx.c ili9340.c jpeg.a png.a -lbcm2835 -lm -DBCM -DSPI1
 sudo ./demo
 ```
 
@@ -133,7 +135,8 @@ In this case, use the following GPIOs.
 ```
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
 cd Raspberry-ili9340spi
-cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -pthread -DWPI
+make lib
+cc -o demo demo.c fontx.c ili9340.c jpeg.a png.a -lwiringPi -lm -pthread -DWPI
 sudo ./demo
 ```
 
@@ -141,7 +144,8 @@ sudo ./demo
 ```
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
 cd Raspberry-ili9340spi
-cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -pthread -DWPI -DSPI1
+make lib
+cc -o demo demo.c fontx.c ili9340.c jpeg.a png.a -lwiringPi -lm -pthread -DWPI -DSPI1
 sudo ./demo
 ```
 
@@ -189,7 +193,8 @@ In this case, use the following GPIOs.
 ```
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
 cd Raspberry-ili9340spi
-cc -o demo demo.c fontx.c ili9340.c -lwiringPi -lm -pthread -DWPI -DSOFT_SPI
+make lib
+cc -o demo demo.c fontx.c ili9340.c jpeg.a png.a -lwiringPi -lm -pthread -DWPI -DSOFT_SPI
 sudo ./demo
 ```
 
@@ -227,17 +232,20 @@ width=240 height=320
 ![ili9340-20](https://user-images.githubusercontent.com/6020549/58363268-65f57200-7edc-11e9-8cc8-af25397d5e24.JPG)
 ![ili9340-21](https://user-images.githubusercontent.com/6020549/58363269-65f57200-7edc-11e9-89f9-8ad644e0b279.JPG)
 
+JPEG File   
+![ili9340-JPEG](https://user-images.githubusercontent.com/6020549/232970130-3241a691-48d6-4b48-b34f-ce7a2e42f6c3.JPG)   
+PNG File   
+![ili9340-PNG](https://user-images.githubusercontent.com/6020549/232970139-5b23c012-f678-45fb-bd76-fcb63f6a9c26.JPG)   
+
 ---
 
 This library can use ILI9341 TFT.   
 
 From left 2.8" ILI9341,2.4" ILI9341, 2.2" ILI9340.   
 
-![ili9341-a](https://cloud.githubusercontent.com/assets/6020549/25058072/db0b0de2-21b0-11e7-8fe1-8dc0496c3fed.JPG)
-
-![ili9341-b](https://cloud.githubusercontent.com/assets/6020549/25058088/f733f38a-21b0-11e7-9c71-b861f7da0c19.JPG)
-
-![ili9341-c](https://cloud.githubusercontent.com/assets/6020549/25058093/02f7680a-21b1-11e7-8f7c-578e6127ca7e.JPG)
+![ILI9341-A](https://user-images.githubusercontent.com/6020549/232970787-2374f04f-def0-4498-b585-c287b9e31663.JPG)
+![ILI9341-B](https://user-images.githubusercontent.com/6020549/232970793-dc0c753a-6da9-4ac9-bab8-c5ebd0752221.JPG)
+![ILI9341-C](https://user-images.githubusercontent.com/6020549/232970799-f87800de-a6f4-435e-b9e9-a2a8a6da6b95.JPG)
 
 ---
 

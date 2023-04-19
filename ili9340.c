@@ -111,27 +111,8 @@ void lcdWriteDataWord(uint16_t w){
   lcdWriteDataByte(lo);
 }
 
-// Write Tow Data 8Bit
-void lcdWriteAddr(uint8_t addr1, uint8_t addr2){
-  uint8_t byte[4];
-  byte[0] = (addr1 >> 8) & 0xFF;
-  byte[1] = addr1 & 0xFF;
-  byte[2] = (addr2 >> 8) & 0xFF;
-  byte[3] = addr2 & 0xFF;
-  digitalWrite(D_C, HIGH);
-#ifdef SOFT_SPI
-  digitalWrite(CS, LOW);
-  for(int index=0;index<4;index++) {
-    shiftOut(MOSI, SCLK, MSBFIRST, byte[index]);
-  }
-  digitalWrite(CS, HIGH);
-#else
-  wiringPiSPIDataRW(0, byte, 4);
-#endif
-}
-
 // Write Data 16Bit
-void lcdWriteColor(uint16_t color, uint16_t size) {
+void lcdWriteColor(uint16_t color, size_t size) {
   uint8_t byte[1024];
   int index=0;
   int i;
@@ -173,19 +154,13 @@ void lcdWriteDataWord(uint16_t w){
   bcm2835_spi_write(w);
 }
 
-// Write Tow Data 8Bit
-void lcdWriteAddr(uint8_t addr1, uint8_t addr2){
-  bcm2835_gpio_write(D_C, HIGH);
-  bcm2835_spi_write(addr1);
-  bcm2835_spi_write(addr2);
-}
-
 // Write Data 16Bit
-void lcdWriteColor(uint16_t color, uint16_t size) {
+void lcdWriteColor(uint16_t color, size_t size) {
   bcm2835_gpio_write(D_C, HIGH);
   int i;
   for(i=0;i<size;i++) bcm2835_spi_write(color);
 }
+
 #endif // end BCM
 
 
@@ -423,6 +398,7 @@ void lcdDrawPixel(uint16_t x, uint16_t y, uint16_t color){
   lcdWriteDataWord(color);
 }
 
+
 // Draw rectangule of filling
 // x1:Start X coordinate
 // y1:Start Y coordinate
@@ -443,14 +419,12 @@ void lcdDrawFillRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_
   lcdWriteCommandByte(0x2A); // set column(x) address
   lcdWriteDataWord(_x1);
   lcdWriteDataWord(_x2);
-  //lcdWriteAddr(_x1, _x2); // Don't work 
   lcdWriteCommandByte(0x2B); // set Page(y) address
   lcdWriteDataWord(_y1);
   lcdWriteDataWord(_y2);
-  //lcdWriteAddr(_y1, _y2); // Don't work 
   lcdWriteCommandByte(0x2C); // Memory Write
   for(i=x1;i<=x2;i++){
-    uint16_t size = y2-y1+1;
+    size_t size = y2-y1+1;
     lcdWriteColor(color, size);
 #if 0
     for(j=y1;j<=y2;j++){
