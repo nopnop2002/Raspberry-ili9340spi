@@ -172,7 +172,7 @@ int16_t decode_jpeg(pixel_jpeg ***pixels, char * file, uint16_t width, uint16_t 
 
 	r = jd_decomp(&decoder, outfunc, scale);
 	if (r != JDR_OK) {
-		printf("%s:jd_decode failed (%d)\n", __func__, r);
+		printf("%s:jd_decomp failed (%d)\n", __func__, r);
 		ret = JPG_ERR_NOT_SUPPORTED;
 		goto err;
 	}
