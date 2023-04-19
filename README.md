@@ -41,8 +41,8 @@ This project can be built with either:
 (*3) For Software SPI, you can change it to any pin by changing source.   
 
 (*4) SPI TFTs require a lot of current.   
- If it is supplied from the Raspberry Pi's 3.3V pin, it may run out of current.   
- Stable when supplied with a 5V pin and a regulator.   
+If it is supplied from the Raspberry Pi's 3.3V pin, it may run out of current.   
+Stable when supplied with a 5V pin and a regulator.   
 
 ---
 
