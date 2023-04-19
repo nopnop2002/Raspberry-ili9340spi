@@ -136,6 +136,7 @@ In this case, use the following GPIOs.
 
 
 ### Using SPI0
+Use Pin#24 as ChipSelect.   
 ```
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
 cd Raspberry-ili9340spi
@@ -145,6 +146,7 @@ sudo ./demo
 ```
 
 ### Using SPI1
+Use Pin#26 as ChipSelect.   
 ```
 git clone https://github.com/nopnop2002/Raspberry-ili9340spi
 cd Raspberry-ili9340spi
