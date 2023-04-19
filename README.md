@@ -42,7 +42,7 @@ This project can be built with either:
 
 (*4) SPI TFTs require a lot of current.   
 If it is supplied from the Raspberry Pi's 3.3V pin, it may run out of current.   
-Stable when supplied with a 5V pin and a regulator.   
+Use the 5V pin and the regulator to power it and it will be stable.   
 
 ---
 
