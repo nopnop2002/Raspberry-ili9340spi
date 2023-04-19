@@ -632,8 +632,8 @@ int main(int argc, char **argv)
 	}
 	if(_DEBUG_)printf("ReadTFTConfig:screenWidth=%d height=%d\n",screenWidth, screenHeight);
 	printf("Your TFT resolution is %d x %d.\n",screenWidth, screenHeight);
-	printf("Your TFT offsetx	is %d.\n",offsetx);
-	printf("Your TFT offsety	is %d.\n",offsety);
+	printf("Your TFT offsetx is %d.\n",offsetx);
+	printf("Your TFT offsety is %d.\n",offsety);
 
 
 	// You can change font file
