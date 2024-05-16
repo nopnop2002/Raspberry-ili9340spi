@@ -17,6 +17,8 @@
 #define 	JPG_ERR_WIFI_BASE   0x3000
 #define 	JPG_ERR_MESH_BASE   0x4000
 
+#define rgb565(r, g, b) (((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3))
+
 //rgb565 format
 typedef uint16_t pixel_jpeg;
 
