@@ -20,7 +20,7 @@ This project can be built with either:
 
 ---
 
-# Wirering   
+# Wiring   
 
 |TFT||GPIO Header||
 |:-:|:-:|:-:|:-:|
@@ -310,7 +310,7 @@ There is a TFT equipped with HR2046.
 XPT2046 and HR2046 are very similar. But HR2046 does not work properly.   
 ![XPT2046-2](https://user-images.githubusercontent.com/6020549/144332571-717f33b1-df03-4a0a-9a23-c7c99b9d4d32.JPG)
 
-Wirering   
+Wiring   
 
 |TFT||Rpi||
 |:-:|:-:|:-:|:-:|
